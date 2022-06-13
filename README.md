@@ -1,6 +1,6 @@
 # flutter_amazon_clone
 
-[Flutter Mobile App + Node.js Back End Tutorial – Code an Amazon Clone [Full Course]](https://www.youtube.com/watch?v=ylJz7N-dv1E&list=LL&index=24&t=196s) で解説されているamazonのクローンアプリを
+[Flutter Mobile App + Node.js Back End Tutorial – Code an Amazon Clone [Full Course]](https://www.youtube.com/watch?v=ylJz7N-dv1E&list=LL&index=24&t=196s) で開発方法が解説されているamazonのクローンアプリを
 
 - dio
 - flutter_hooks
