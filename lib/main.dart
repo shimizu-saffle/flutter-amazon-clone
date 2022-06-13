@@ -6,12 +6,12 @@ import 'go_router.dart';
 
 void main() {
   runApp(
-    const ProviderScope(child: MyApp()),
+    const ProviderScope(child: AmazonClone()),
   );
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+class AmazonClone extends ConsumerWidget {
+  const AmazonClone({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
