@@ -1,16 +1,12 @@
 # flutter_amazon_clone
 
-A new Flutter project.
+[Flutter Mobile App + Node.js Back End Tutorial – Code an Amazon Clone [Full Course]](https://www.youtube.com/watch?v=ylJz7N-dv1E&list=LL&index=24&t=196s) で解説されているamazonのクローンアプリを
 
-## Getting Started
+- dio
+- flutter_hooks
+- go_router
+- hooks_riverpod
+- freezed
 
-This project is a starting point for a Flutter application.
+上記のパッケージを使用して開発し、テストコードを書き、[Codecov](https://about.codecov.io/)を使ったテストカバレッジ測定100%を目指します。
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
