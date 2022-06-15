@@ -13,7 +13,7 @@ final goRouterProvider = Provider<GoRouter>(
           name: AuthPage.routeName,
           pageBuilder: (context, state) => MaterialPage(
             key: state.pageKey,
-            child: const AuthPage(),
+            child: AuthPage(),
           ),
         ),
       ],
