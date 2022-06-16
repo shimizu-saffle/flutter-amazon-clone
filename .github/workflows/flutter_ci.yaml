@@ -46,10 +46,6 @@ jobs:
       - name: Run Flutter Test
         run: flutter test --coverage
 
-      # coverage を出力する
-      - name: Generate Coverage Report
-        run: flutter coverage report --html --output-dir coverage
-
       # テスト結果を GitHub Actions に表示する
       - name: Report Test (locale=ja)
         uses: dorny/test-reporter@v1
