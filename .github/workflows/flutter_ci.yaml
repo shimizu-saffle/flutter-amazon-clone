@@ -43,5 +43,17 @@ jobs:
         run: flutter analyze
 
       # テストを実行
+      # あとでテスト結果を GitHub Actions 上に表示するので log に出力する
+      # あとでカバレッジ結果をCodecovに送信するのでカバレッジありで実行する
       - name: Run Flutter Test
-        run: flutter test
+        run:
+          flutter test --machine --coverage > test-report.log
+          # テスト結果を GitHub Actions に表示する
+      - name: Report Test
+        uses: dorny/test-reporter@v1
+        # テスト結果を表示するのでテストが失敗しても実行する
+        if: always()
+        with:
+          name: Flutter Test Report
+          path: test-report.log
+          reporter: flutter-json
