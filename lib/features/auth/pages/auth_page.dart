@@ -26,12 +26,6 @@ class AuthPage extends HookConsumerWidget {
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
 
-    useEffect(
-      () {
-        return null;
-      },
-    );
-
     return Scaffold(
       backgroundColor: greyBackgroundCOlor,
       body: SafeArea(
