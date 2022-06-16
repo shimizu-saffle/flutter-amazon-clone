@@ -44,13 +44,4 @@ jobs:
 
       # テストを実行
       - name: Run Flutter Test
-        run: flutter test --coverage
-
-      # テスト結果を GitHub Actions に表示する
-      - name: Report Test (locale=ja)
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: Flutter Test Report (ubuntu-latest / ja)
-          path: test-report.log
-          reporter: flutter-json
+        run: flutter test
