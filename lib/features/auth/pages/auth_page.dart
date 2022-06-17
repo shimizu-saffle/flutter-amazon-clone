@@ -31,105 +31,107 @@ class AuthPage extends HookConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Welcome',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              ListTile(
-                tileColor: auth.value == Auth.signUp
-                    ? backgroundColor
-                    : greyBackgroundCOlor,
-                title: const Text(
-                  'Create Account',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                leading: Radio(
-                  activeColor: secondaryColor,
-                  value: Auth.signUp,
-                  groupValue: auth.value,
-                  onChanged: (Auth? value) => auth.value = value!,
-                ),
-              ),
-              if (auth.value == Auth.signUp)
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: backgroundColor,
-                  child: Form(
-                    key: signUpFormKey,
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          controller: nameController,
-                          hintText: 'Name',
-                        ),
-                        const Gap(10),
-                        CustomTextField(
-                          controller: emailController,
-                          hintText: 'Email',
-                        ),
-                        const Gap(10),
-                        CustomTextField(
-                          controller: passwordController,
-                          hintText: 'Password',
-                        ),
-                        const Gap(10),
-                        CustomButton(
-                          onPressed: () {},
-                          text: 'Sign Up',
-                        ),
-                      ],
-                    ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Welcome',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-              ListTile(
-                tileColor: auth.value == Auth.signIn
-                    ? backgroundColor
-                    : greyBackgroundCOlor,
-                title: const Text(
-                  'Sing-In',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                leading: Radio(
-                  activeColor: secondaryColor,
-                  value: Auth.signIn,
-                  groupValue: auth.value,
-                  onChanged: (Auth? value) => auth.value = value!,
-                ),
-              ),
-              if (auth.value == Auth.signIn)
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: backgroundColor,
-                  child: Form(
-                    key: signUpFormKey,
-                    child: Column(
-                      children: [
-                        const Gap(10),
-                        CustomTextField(
-                          controller: emailController,
-                          hintText: 'Email',
-                        ),
-                        const Gap(10),
-                        CustomTextField(
-                          controller: passwordController,
-                          hintText: 'Password',
-                        ),
-                        const Gap(10),
-                        CustomButton(
-                          onPressed: () {},
-                          text: 'Sign In',
-                        ),
-                      ],
-                    ),
+                ListTile(
+                  tileColor: auth.value == Auth.signUp
+                      ? backgroundColor
+                      : greyBackgroundCOlor,
+                  title: const Text(
+                    'Create Account',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  leading: Radio(
+                    activeColor: secondaryColor,
+                    value: Auth.signUp,
+                    groupValue: auth.value,
+                    onChanged: (Auth? value) => auth.value = value!,
                   ),
                 ),
-            ],
+                if (auth.value == Auth.signUp)
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: backgroundColor,
+                    child: Form(
+                      key: signUpFormKey,
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            controller: nameController,
+                            hintText: 'Name',
+                          ),
+                          const Gap(10),
+                          CustomTextField(
+                            controller: emailController,
+                            hintText: 'Email',
+                          ),
+                          const Gap(10),
+                          CustomTextField(
+                            controller: passwordController,
+                            hintText: 'Password',
+                          ),
+                          const Gap(10),
+                          CustomButton(
+                            onPressed: () {},
+                            text: 'Sign Up',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ListTile(
+                  tileColor: auth.value == Auth.signIn
+                      ? backgroundColor
+                      : greyBackgroundCOlor,
+                  title: const Text(
+                    'Sing-In',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  leading: Radio(
+                    activeColor: secondaryColor,
+                    value: Auth.signIn,
+                    groupValue: auth.value,
+                    onChanged: (Auth? value) => auth.value = value!,
+                  ),
+                ),
+                if (auth.value == Auth.signIn)
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: backgroundColor,
+                    child: Form(
+                      key: signUpFormKey,
+                      child: Column(
+                        children: [
+                          const Gap(10),
+                          CustomTextField(
+                            controller: emailController,
+                            hintText: 'Email',
+                          ),
+                          const Gap(10),
+                          CustomTextField(
+                            controller: passwordController,
+                            hintText: 'Password',
+                          ),
+                          const Gap(10),
+                          CustomButton(
+                            onPressed: () {},
+                            text: 'Sign In',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
