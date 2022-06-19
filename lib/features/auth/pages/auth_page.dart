@@ -99,6 +99,7 @@ class AuthPage extends HookConsumerWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   leading: Radio(
+                    key: const Key('auth_page_radio_button_2'),
                     activeColor: secondaryColor,
                     value: Auth.signIn,
                     groupValue: auth.value,
