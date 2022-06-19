@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets(
-    'Test to find AuthPage title',
+    'AuthPage UI Test',
     (WidgetTester tester) async {
       final Widget testWidget = MediaQuery(
         data: const MediaQueryData(),
@@ -12,9 +12,13 @@ void main() {
           home: AuthPage(),
         ),
       );
+
       await tester.pumpWidget(testWidget);
-      final pageTitleFinder = find.text('Welcome');
-      expect(pageTitleFinder, findsOneWidget);
+
+      // ラジオボタンを見つける
+      final radioFinder = find.byType(Radio<Auth>);
+      // ラジオボタンが2つあることを確認する
+      expect(radioFinder, findsNWidgets(2));
     },
   );
 }
