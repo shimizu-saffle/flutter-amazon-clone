@@ -51,6 +51,8 @@ class AuthPage extends HookConsumerWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   leading: Radio(
+                    // Widget testで、このRadioを見つけやすくするためにkeyを指定
+                    key: const Key('auth_page_radio_button_1'),
                     activeColor: secondaryColor,
                     value: Auth.signUp,
                     groupValue: auth.value,
