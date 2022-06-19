@@ -24,7 +24,7 @@ void main() {
       await tester.tap(find.byKey(const Key('auth_page_radio_button_2')));
       // pump()でページを更新しないとSign Inボタンは見つからない
       await tester.pump();
-      expect(find.text('Sign In'), findsOneWidget);
+      await tester.tap(find.text('Sign In'));
     },
   );
 }
