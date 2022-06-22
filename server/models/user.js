@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
           /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         return value.match(re);
       },
-      message: "Please enter a vailid email address",
+      message: "Please enter a valid email address",
     },
   },
   password: {
