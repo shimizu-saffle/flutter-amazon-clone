@@ -22,7 +22,14 @@ const userSchema = mongoose.Schema({
     password: {
       required: true,
       type: String,
+      validate: {
+        validator: (value) => {
+          return value.length > 6;
+        },
+        message: "Please enter a longer password",
+      },
     },
+    // 必須フィールドでは無いので、default値を指定している。
     address: {
       type: String,
       default: "",

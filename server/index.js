@@ -16,7 +16,7 @@ app.use(authRouter);
 
 // connect to mongodb
 mongoose
-  .connect()
+  .connect(dbUri)
   .then(() => {
     console.log("Connected to mongodb");
   })
