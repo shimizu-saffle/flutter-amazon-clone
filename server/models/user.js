@@ -19,5 +19,21 @@ const userSchema = mongoose.Schema({
       },
       message: "Please enter a vailid email address",
     },
+    password: {
+      required: true,
+      type: String,
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    type: {
+      type: String,
+      default: "user",
+    },
   },
+  // cart
 });
+
+const User = mongoose.model("User", userSchema);
+module.exports = User;
