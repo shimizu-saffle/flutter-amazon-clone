@@ -12,6 +12,8 @@ const dbUri =
   "mongodb+srv://kenta:*G46jmAkUpPg2C*@cluster0.to4jhyj.mongodb.net/?retryWrites=true&w=majority";
 
 // middleware
+// json のみを解析し、Content-Type ヘッダが Content-Type オプションに一致するリクエストのみを検索するミドルウェアを返す。
+app.use(express.json());
 app.use(authRouter);
 
 // connect to mongodb
