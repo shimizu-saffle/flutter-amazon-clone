@@ -17,6 +17,7 @@ authRouter.post("/api/signup", async (req, res) => {
         .json({ message: "User with same email already exists!" });
     }
 
+    // ユーザーが入力したパスワードをハッシュ化
     const hashedPassword = await bcryptjs.hash(password, 8);
 
     // 再代入できるようにするため、let で宣言している
