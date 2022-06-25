@@ -9,16 +9,6 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:pedantic_mono/analysis_options.yaml
 
-analyzer:
-  # exclude:
-  #   - lib/**/**.freezed.dart
-  #   - lib/**/**.g.dart
-  # errors:
-  # Remi さんの推奨設定
-  # https://github.com/dart-lang/sdk/issues/46844
-  # freezed モデルの invalid_annotation_target の警告を消す目的
-  # invalid_annotation_target: ignore
-
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
