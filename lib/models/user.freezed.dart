@@ -169,17 +169,18 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_User with DiagnosticableTreeMixin implements _User {
   const _$_User(
-      {required this.id,
+      {this.id = '',
       required this.name,
       required this.email,
       required this.password,
-      required this.address,
-      required this.type,
-      required this.token});
+      this.address = '',
+      this.type = '',
+      this.token = ''});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
+  @JsonKey()
   final String id;
   @override
   final String name;
@@ -188,10 +189,13 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   @override
   final String password;
   @override
+  @JsonKey()
   final String address;
   @override
+  @JsonKey()
   final String type;
   @override
+  @JsonKey()
   final String token;
 
   @override
@@ -252,13 +256,13 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {required final String id,
+      {final String id,
       required final String name,
       required final String email,
       required final String password,
-      required final String address,
-      required final String type,
-      required final String token}) = _$_User;
+      final String address,
+      final String type,
+      final String token}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
