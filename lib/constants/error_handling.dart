@@ -6,12 +6,8 @@ import 'utils.dart';
 void dioErrorHandling({
   required DioError error,
   required BuildContext context,
-  required VoidCallback onSuccess,
 }) {
   switch (error.response?.statusCode) {
-    case 200:
-      onSuccess();
-      break;
     case 400:
       showSnackBar(
         context,

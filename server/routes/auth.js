@@ -33,7 +33,7 @@ authRouter.post("/api/signup", async (req, res) => {
     // そのデータをクライアントに返す
     res.json(user);
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    res.status(500).json({ error: e.message });
   }
 });
 
