@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../../../constants/global_variables.dart';
+import '../../../constants/utils.dart';
 import '../../../services/auth_service.dart';
 
 enum AuthStatus {
@@ -93,6 +94,10 @@ class AuthPage extends HookConsumerWidget {
                                   email: emailController.text,
                                   password: passwordController.text,
                                   name: nameController.text,
+                                  onSuccess: () => showSnackBar(
+                                    context,
+                                    '${nameController.text} account created!',
+                                  ),
                                 );
                               }
                             },

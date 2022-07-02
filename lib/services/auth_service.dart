@@ -11,6 +11,7 @@ final authServiceProvider = Provider<AuthService>((_) => AuthService());
 class AuthService {
   Future<void> signUpUser({
     required BuildContext context,
+    required VoidCallback onSuccess,
     required String email,
     required String password,
     required String name,
@@ -31,6 +32,7 @@ class AuthService {
           },
         ),
       );
+      onSuccess();
     } on DioError catch (e) {
       dioErrorHandling(
         error: e,
