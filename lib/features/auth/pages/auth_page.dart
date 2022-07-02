@@ -21,7 +21,7 @@ class AuthPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final auth = useState<Auth>(Auth.signUp);
+    final authStatus = useState<Auth>(Auth.signUp);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
@@ -43,7 +43,7 @@ class AuthPage extends HookConsumerWidget {
                   ),
                 ),
                 ListTile(
-                  tileColor: auth.value == Auth.signUp
+                  tileColor: authStatus.value == Auth.signUp
                       ? backgroundColor
                       : greyBackgroundCOlor,
                   title: const Text(
@@ -55,11 +55,11 @@ class AuthPage extends HookConsumerWidget {
                     key: const Key('auth_page_radio_button_1'),
                     activeColor: secondaryColor,
                     value: Auth.signUp,
-                    groupValue: auth.value,
-                    onChanged: (Auth? value) => auth.value = value!,
+                    groupValue: authStatus.value,
+                    onChanged: (Auth? value) => authStatus.value = value!,
                   ),
                 ),
-                if (auth.value == Auth.signUp)
+                if (authStatus.value == Auth.signUp)
                   Container(
                     padding: const EdgeInsets.all(8),
                     color: backgroundColor,
@@ -91,7 +91,7 @@ class AuthPage extends HookConsumerWidget {
                     ),
                   ),
                 ListTile(
-                  tileColor: auth.value == Auth.signIn
+                  tileColor: authStatus.value == Auth.signIn
                       ? backgroundColor
                       : greyBackgroundCOlor,
                   title: const Text(
@@ -102,11 +102,11 @@ class AuthPage extends HookConsumerWidget {
                     key: const Key('auth_page_radio_button_2'),
                     activeColor: secondaryColor,
                     value: Auth.signIn,
-                    groupValue: auth.value,
-                    onChanged: (Auth? value) => auth.value = value!,
+                    groupValue: authStatus.value,
+                    onChanged: (Auth? value) => authStatus.value = value!,
                   ),
                 ),
-                if (auth.value == Auth.signIn)
+                if (authStatus.value == Auth.signIn)
                   Container(
                     padding: const EdgeInsets.all(8),
                     color: backgroundColor,
