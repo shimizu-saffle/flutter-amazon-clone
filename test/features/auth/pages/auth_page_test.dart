@@ -14,7 +14,7 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // ジェネリクスでvalueプロパティに代入している値の型を指定しないとRadioは見つからない
-      final radioFinder = find.byType(Radio<Auth>);
+      final radioFinder = find.byType(Radio<AuthStatus>);
       expect(radioFinder, findsNWidgets(2));
       // 2つ目のRadioボタンをタップ
       // Keyを指定しているとWidgetを見つけやすい

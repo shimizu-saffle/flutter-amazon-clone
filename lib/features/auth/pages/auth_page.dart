@@ -6,8 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../../../constants/global_variables.dart';
+import '../../../services/auth_service.dart';
 
-enum Auth {
+enum AuthStatus {
   signIn,
   signUp,
 }
@@ -21,7 +22,8 @@ class AuthPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authStatus = useState<Auth>(Auth.signUp);
+    final authStatus = useState<AuthStatus>(AuthStatus.signUp);
+    final authService = ref.watch(authServiceProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
@@ -43,7 +45,7 @@ class AuthPage extends HookConsumerWidget {
                   ),
                 ),
                 ListTile(
-                  tileColor: authStatus.value == Auth.signUp
+                  tileColor: authStatus.value == AuthStatus.signUp
                       ? backgroundColor
                       : greyBackgroundCOlor,
                   title: const Text(
@@ -54,12 +56,12 @@ class AuthPage extends HookConsumerWidget {
                     // Widget testで、このRadioを見つけやすくするためにkeyを指定
                     key: const Key('auth_page_radio_button_1'),
                     activeColor: secondaryColor,
-                    value: Auth.signUp,
+                    value: AuthStatus.signUp,
                     groupValue: authStatus.value,
-                    onChanged: (Auth? value) => authStatus.value = value!,
+                    onChanged: (AuthStatus? value) => authStatus.value = value!,
                   ),
                 ),
-                if (authStatus.value == Auth.signUp)
+                if (authStatus.value == AuthStatus.signUp)
                   Container(
                     padding: const EdgeInsets.all(8),
                     color: backgroundColor,
@@ -83,15 +85,24 @@ class AuthPage extends HookConsumerWidget {
                           ),
                           const Gap(10),
                           CustomButton(
-                            onPressed: () {},
                             text: 'Sign Up',
+                            onPressed: () {
+                              if (signUpFormKey.currentState!.validate()) {
+                                authService.signUpUser(
+                                  context: context,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  name: nameController.text,
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
                     ),
                   ),
                 ListTile(
-                  tileColor: authStatus.value == Auth.signIn
+                  tileColor: authStatus.value == AuthStatus.signIn
                       ? backgroundColor
                       : greyBackgroundCOlor,
                   title: const Text(
@@ -101,12 +112,12 @@ class AuthPage extends HookConsumerWidget {
                   leading: Radio(
                     key: const Key('auth_page_radio_button_2'),
                     activeColor: secondaryColor,
-                    value: Auth.signIn,
+                    value: AuthStatus.signIn,
                     groupValue: authStatus.value,
-                    onChanged: (Auth? value) => authStatus.value = value!,
+                    onChanged: (AuthStatus? value) => authStatus.value = value!,
                   ),
                 ),
-                if (authStatus.value == Auth.signIn)
+                if (authStatus.value == AuthStatus.signIn)
                   Container(
                     padding: const EdgeInsets.all(8),
                     color: backgroundColor,

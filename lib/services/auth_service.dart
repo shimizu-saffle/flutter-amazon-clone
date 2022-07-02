@@ -22,7 +22,7 @@ class AuthService {
         password: password,
         name: name,
       );
-      await dio.post<User?>(
+      await dio.post<Map<String, dynamic>>(
         '$baseUrl/api/signup',
         data: user.toJson(),
         options: Options(
@@ -36,6 +36,7 @@ class AuthService {
         error: e,
         context: context,
       );
+      debugPrint(e.toString());
     }
   }
 }

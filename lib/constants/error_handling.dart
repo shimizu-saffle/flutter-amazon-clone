@@ -23,7 +23,7 @@ void dioErrorHandling({
     case null:
       showSnackBar(
         context,
-        'Something went wrong',
+        error.message,
       );
       break;
     default:
