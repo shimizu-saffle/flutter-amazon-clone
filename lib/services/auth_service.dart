@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/error_handling.dart';
 import '../constants/global_variables.dart';
 import '../models/user.dart';
+
+final authServiceProvider = Provider<AuthService>((_) => AuthService());
 
 class AuthService {
   Future<void> signUpUser({
