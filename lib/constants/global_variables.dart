@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-String baseUrl = 'http://192.168.1.25:3000';
+String baseUrl = 'http://192.168.1.6:3000';
 
 // COLORS
 const appBarGradient = LinearGradient(

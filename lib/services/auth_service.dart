@@ -5,10 +5,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../constants/error_handling.dart';
 import '../constants/global_variables.dart';
 import '../models/user.dart';
+import '../providers/dio.dart';
 
-final authServiceProvider = Provider<AuthService>((_) => AuthService());
+final authServiceProvider =
+    Provider<AuthService>((ref) => AuthService(ref.read));
 
 class AuthService {
+  AuthService(this._read);
+
+  final Reader _read;
+
   Future<void> signUpUser({
     required BuildContext context,
     required VoidCallback onSuccess,
@@ -17,13 +23,12 @@ class AuthService {
     required String name,
   }) async {
     try {
-      final dio = Dio();
       final user = User(
         email: email,
         password: password,
         name: name,
       );
-      await dio.post<Map<String, dynamic>>(
+      await _read(dioProvider).post<Map<String, dynamic>>(
         '$baseUrl/api/signup',
         data: user.toJson(),
         options: Options(
