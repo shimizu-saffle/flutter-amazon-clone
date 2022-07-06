@@ -4,33 +4,36 @@ import 'package:flutter/material.dart';
 import 'utils.dart';
 
 void dioErrorHandling({
-  required DioError error,
+  required Response<dynamic> response,
   required BuildContext context,
+  required VoidCallback onSuccess,
 }) {
-  switch (error.response?.statusCode) {
+  switch (response.statusCode) {
+    case 200:
+      onSuccess();
+      break;
     case 400:
       showSnackBar(
         context,
-        error.message,
+        response.statusMessage!,
       );
       break;
     case 500:
       showSnackBar(
         context,
-        error.message,
+        response.statusMessage!,
       );
       break;
     case null:
       showSnackBar(
         context,
-        error.message,
+        response.statusMessage!,
       );
       break;
     default:
       showSnackBar(
         context,
-        'Something went wrong',
+        response.toString(),
       );
-      break;
   }
 }

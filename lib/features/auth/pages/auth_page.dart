@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../../../constants/global_variables.dart';
-import '../../../constants/utils.dart';
 import '../../../services/auth_service.dart';
 
 enum AuthStatus {
@@ -46,9 +45,8 @@ class AuthPage extends HookConsumerWidget {
                   ),
                 ),
                 ListTile(
-                  tileColor: authStatus.value == AuthStatus.signUp
-                      ? backgroundColor
-                      : greyBackgroundCOlor,
+                  tileColor:
+                      authStatus.value == AuthStatus.signUp ? backgroundColor : greyBackgroundCOlor,
                   title: const Text(
                     'Create Account',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -94,10 +92,6 @@ class AuthPage extends HookConsumerWidget {
                                   email: emailController.text,
                                   password: passwordController.text,
                                   name: nameController.text,
-                                  onSuccess: () => showSnackBar(
-                                    context,
-                                    '${nameController.text} account created!',
-                                  ),
                                 );
                               }
                             },
@@ -107,9 +101,8 @@ class AuthPage extends HookConsumerWidget {
                     ),
                   ),
                 ListTile(
-                  tileColor: authStatus.value == AuthStatus.signIn
-                      ? backgroundColor
-                      : greyBackgroundCOlor,
+                  tileColor:
+                      authStatus.value == AuthStatus.signIn ? backgroundColor : greyBackgroundCOlor,
                   title: const Text(
                     'Sing-In',
                     style: TextStyle(fontWeight: FontWeight.bold),

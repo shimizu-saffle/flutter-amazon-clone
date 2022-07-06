@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/error_handling.dart';
 import '../constants/global_variables.dart';
+import '../constants/utils.dart';
 import '../models/user.dart';
 import '../providers/dio.dart';
 
@@ -16,7 +17,6 @@ class AuthService {
 
   Future<void> signUpUser({
     required BuildContext context,
-    required VoidCallback onSuccess,
     required String email,
     required String password,
     required String name,
@@ -27,47 +27,23 @@ class AuthService {
         password: password,
         name: name,
       );
-      await _read(dioProvider).post<Map<String, dynamic>>(
+      final res = await _read(dioProvider).post<Map<String, dynamic>>(
         '$baseUrl/api/signup',
         data: user.toJson(),
         options: Options(
           headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         ),
       );
-      onSuccess();
-    } on DioError catch (e) {
       dioErrorHandling(
-        error: e,
+        response: res,
         context: context,
-      );
-      debugPrint(e.toString());
-    }
-  }
-
-  Future<void> signInUser({
-    required BuildContext context,
-    required VoidCallback onSuccess,
-    required String email,
-    required String password,
-  }) async {
-    try {
-      await _read(dioProvider).post<Map<String, dynamic>>(
-        '$baseUrl/api/signup',
-        data: {
-          'email': email,
-          'password': password,
-        },
-        options: Options(
-          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        onSuccess: () => showSnackBar(
+          context,
+          'Account created! Login with the same credentials!',
         ),
       );
-      onSuccess();
     } on DioError catch (e) {
-      dioErrorHandling(
-        error: e,
-        context: context,
-      );
-      debugPrint(e.toString());
+      showSnackBar(context, e.toString());
     }
   }
 }
