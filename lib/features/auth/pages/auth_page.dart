@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../../../constants/global_variables.dart';
-import '../../../services/auth_service.dart';
+import '../repositories/auth_repository.dart';
 
 enum AuthStatus {
   signIn,
