@@ -7,8 +7,7 @@ import '../constants/global_variables.dart';
 import '../models/user.dart';
 import '../providers/dio.dart';
 
-final authServiceProvider =
-    Provider<AuthService>((ref) => AuthService(ref.read));
+final authServiceProvider = Provider<AuthService>((ref) => AuthService(ref.read));
 
 class AuthService {
   AuthService(this._read);
@@ -32,9 +31,34 @@ class AuthService {
         '$baseUrl/api/signup',
         data: user.toJson(),
         options: Options(
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          },
+          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        ),
+      );
+      onSuccess();
+    } on DioError catch (e) {
+      dioErrorHandling(
+        error: e,
+        context: context,
+      );
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> signInUser({
+    required BuildContext context,
+    required VoidCallback onSuccess,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await _read(dioProvider).post<Map<String, dynamic>>(
+        '$baseUrl/api/signup',
+        data: {
+          'email': email,
+          'password': password,
+        },
+        options: Options(
+          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         ),
       );
       onSuccess();
