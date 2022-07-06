@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../constants/error_handling.dart';
 import '../constants/global_variables.dart';
 import '../constants/utils.dart';
-import '../models/user.dart';
+import '../models/user/user.dart';
 import '../providers/dio.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) => AuthService(ref.read));
