@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/error_handling.dart';
 import '../../../constants/global_variables.dart';
@@ -48,7 +47,7 @@ class AuthRepository {
     }
   }
 
-  Future<void> signInUser({
+  Future<User?> signInUser({
     required BuildContext context,
     required String email,
     required String password,
@@ -64,20 +63,15 @@ class AuthRepository {
           headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         ),
       );
-      debugPrint(response.toString());
       dioErrorHandling(
         response: response,
         context: context,
-        onSuccess: () async {
-          final preferences = await SharedPreferences.getInstance();
-          await preferences.setString(
-            'x-auth-token',
-            response.data!['token']!.toString(),
-          );
-        },
+        onSuccess: () {},
       );
+      return User.fromJson(response.data!);
     } on DioError catch (e) {
       showSnackBar(context, e.toString());
     }
+    return null;
   }
 }
