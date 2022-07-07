@@ -23,7 +23,7 @@ class AuthPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authStatus = useState<AuthStatus>(AuthStatus.signUp);
-    final authService = ref.watch(authServiceProvider);
+    final authRepository = ref.watch(authRepositoryProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
@@ -87,7 +87,7 @@ class AuthPage extends HookConsumerWidget {
                             text: 'Sign Up',
                             onPressed: () {
                               if (signUpFormKey.currentState!.validate()) {
-                                authService.signUpUser(
+                                authRepository.signUpUser(
                                   context: context,
                                   email: emailController.text,
                                   password: passwordController.text,
@@ -120,7 +120,7 @@ class AuthPage extends HookConsumerWidget {
                     padding: const EdgeInsets.all(8),
                     color: backgroundColor,
                     child: Form(
-                      key: signUpFormKey,
+                      key: signInFormKey,
                       child: Column(
                         children: [
                           const Gap(10),
@@ -135,7 +135,15 @@ class AuthPage extends HookConsumerWidget {
                           ),
                           const Gap(10),
                           CustomButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (signInFormKey.currentState!.validate()) {
+                                authRepository.signInUser(
+                                  context: context,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                              }
+                            },
                             text: 'Sign In',
                           ),
                         ],

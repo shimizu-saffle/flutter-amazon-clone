@@ -8,7 +8,7 @@ import '../../../constants/utils.dart';
 import '../../../models/user/user.dart';
 import '../../../providers/dio.dart';
 
-final authServiceProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.read));
+final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.read));
 
 class AuthRepository {
   AuthRepository(this._read);
@@ -41,6 +41,33 @@ class AuthRepository {
           context,
           'Account created! Login with the same credentials!',
         ),
+      );
+    } on DioError catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  Future<void> signInUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await _read(dioProvider).post<Map<String, dynamic>>(
+        '$baseUrl/api/signin',
+        data: {
+          'email': email,
+          'password': password,
+        },
+        options: Options(
+          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        ),
+      );
+      debugPrint(response.toString());
+      dioErrorHandling(
+        response: response,
+        context: context,
+        onSuccess: () {},
       );
     } on DioError catch (e) {
       showSnackBar(context, e.toString());
