@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/error_handling.dart';
 import '../../../constants/global_variables.dart';
 import '../../../constants/utils.dart';
 import '../../../models/user/user.dart';
-import '../../../providers/dio.dart';
+import '../../../providers/dio_provider.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.read));
 
@@ -67,7 +68,13 @@ class AuthRepository {
       dioErrorHandling(
         response: response,
         context: context,
-        onSuccess: () {},
+        onSuccess: () async {
+          final preferences = await SharedPreferences.getInstance();
+          await preferences.setString(
+            'x-auth-token',
+            response.data!['token']!.toString(),
+          );
+        },
       );
     } on DioError catch (e) {
       showSnackBar(context, e.toString());
