@@ -18,6 +18,7 @@ class AuthController extends StateNotifier<User> {
     required BuildContext context,
     required String email,
     required String password,
+    required VoidCallback onSuccess,
   }) async {
     final currentUser = await _read(authRepositoryProvider)
         .signInUser(context: context, email: email, password: password);
@@ -25,6 +26,7 @@ class AuthController extends StateNotifier<User> {
       final preferences = await SharedPreferences.getInstance();
       await preferences.setString('x-auth-token', currentUser.token);
       state = currentUser;
+      onSuccess();
     }
   }
 }

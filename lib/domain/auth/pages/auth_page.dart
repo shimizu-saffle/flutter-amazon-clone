@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../../../constants/global_variables.dart';
+import '../../home/pages/home_page.dart';
+import '../controllers/auth_controller.dart';
 import '../repositories/auth_repository.dart';
 
 enum AuthStatus {
@@ -137,11 +140,14 @@ class AuthPage extends HookConsumerWidget {
                           CustomButton(
                             onPressed: () {
                               if (signInFormKey.currentState!.validate()) {
-                                authRepository.signInUser(
-                                  context: context,
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                );
+                                ref.read(authControllerProvider.notifier).signInUser(
+                                      context: context,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                      onSuccess: () {
+                                        context.go(HomePage.routePath);
+                                      },
+                                    );
                               }
                             },
                             text: 'Sign In',
