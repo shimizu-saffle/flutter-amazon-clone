@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/common/widgets/custom_button.dart';
-import 'package:flutter_amazon_clone/features/auth/pages/auth_page.dart';
+import 'package:flutter_amazon_clone/domain/auth/pages/auth_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
