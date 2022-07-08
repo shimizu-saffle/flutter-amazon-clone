@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'domain/auth/pages/auth_page.dart';
+import 'domain/home/pages/home_page.dart';
 
-final goRouterProvider = Provider<GoRouter>(
+final routerProvider = Provider<GoRouter>(
   (_) {
     return GoRouter(
       routes: [
@@ -14,6 +15,14 @@ final goRouterProvider = Provider<GoRouter>(
           pageBuilder: (context, state) => MaterialPage(
             key: state.pageKey,
             child: AuthPage(),
+          ),
+        ),
+        GoRoute(
+          path: HomePage.routePath,
+          name: HomePage.routeName,
+          pageBuilder: (context, state) => MaterialPage(
+            key: state.pageKey,
+            child: const HomePage(),
           ),
         ),
       ],

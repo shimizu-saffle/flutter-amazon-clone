@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'constants/global_variables.dart';
-import 'go_router.dart';
+import 'router.dart';
 
 void main() {
   runApp(
@@ -15,7 +15,7 @@ class AmazonClone extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(goRouterProvider);
+    final router = ref.watch(routerProvider);
     return MaterialApp.router(
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,
