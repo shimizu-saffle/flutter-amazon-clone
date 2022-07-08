@@ -6,6 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/user/user.dart';
 import '../repositories/auth_repository.dart';
 
+final authControllerProvider =
+    StateNotifierProvider<AuthController, User>((ref) => AuthController(ref.read));
+
 class AuthController extends StateNotifier<User> {
   AuthController(this._read) : super(const User(name: '', email: '', password: ''));
 
