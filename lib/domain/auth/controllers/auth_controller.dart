@@ -1,9 +1,9 @@
 // StateNotifier を継承した AuthController を定義する
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/user/user.dart';
+import '../../../providers/shared_preferences_provider.dart';
 import '../repositories/auth_repository.dart';
 
 final authControllerProvider =
@@ -23,8 +23,7 @@ class AuthController extends StateNotifier<User> {
     final currentUser = await _read(authRepositoryProvider)
         .signInUser(context: context, email: email, password: password);
     if (currentUser != null) {
-      final preferences = await SharedPreferences.getInstance();
-      await preferences.setString('x-auth-token', currentUser.token);
+      await _read(sharedPreferencesProvider).setString('x-auth-token', currentUser.token);
       state = currentUser;
       onSuccess();
     }

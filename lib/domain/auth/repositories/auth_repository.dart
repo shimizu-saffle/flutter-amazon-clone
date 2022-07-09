@@ -66,7 +66,6 @@ class AuthRepository {
       dioErrorHandling(
         response: response,
         context: context,
-        onSuccess: () {},
       );
       return User.fromJson(response.data!);
     } on DioError catch (e) {
@@ -74,4 +73,7 @@ class AuthRepository {
     }
     return null;
   }
+
+  // get user data
+
 }

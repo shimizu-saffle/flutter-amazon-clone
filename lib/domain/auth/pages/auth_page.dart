@@ -144,9 +144,7 @@ class AuthPage extends HookConsumerWidget {
                                       context: context,
                                       email: emailController.text,
                                       password: passwordController.text,
-                                      onSuccess: () {
-                                        context.go(HomePage.routePath);
-                                      },
+                                      onSuccess: () => context.go(HomePage.routePath),
                                     );
                               }
                             },
