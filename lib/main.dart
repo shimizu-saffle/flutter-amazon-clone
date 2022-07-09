@@ -3,10 +3,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'constants/global_variables.dart';
 import 'router.dart';
+import 'utils/provider_scope.dart';
 
-void main() {
+Future<void> main() async {
+  final overrides = await providerScopeOverrides;
   runApp(
-    const ProviderScope(child: AmazonClone()),
+    ProviderScope(
+      overrides: overrides,
+      child: const AmazonClone(),
+    ),
   );
 }
 
