@@ -64,7 +64,6 @@ authRouter.post('/api/signin', async (req, res) => {
   }
 });
 
-// tokenIsValid
 authRouter.post('/tokenIsValid', async (req, res) => {
   try {
     const token = req.headers('x-auth-token');
@@ -77,7 +76,9 @@ authRouter.post('/tokenIsValid', async (req, res) => {
     if (!user) return res.json(false);
 
     res.json(true);
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // export することによって server/index.js で import できる。
