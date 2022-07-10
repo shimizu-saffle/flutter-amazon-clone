@@ -1,11 +1,11 @@
-const express = require("express");
-const User = require("../models/user");
-const bcryptjs = require("bcryptjs");
+const express = require('express');
+const User = require('../models/user');
+const bcryptjs = require('bcryptjs');
 const authRouter = express.Router();
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 // Sign Up Route
-authRouter.post("/api/signup", async (req, res) => {
+authRouter.post('/api/signup', async (req, res) => {
   try {
     // クライアントからデータを取得
     const { name, email, password } = req.body;
@@ -16,7 +16,7 @@ authRouter.post("/api/signup", async (req, res) => {
       // ステータスコードを指定する
       return res
         .status(400) // 400 Bad Request
-        .json({ message: "User with same email already exists!" });
+        .json({ message: 'User with same email already exists!' });
     }
 
     // ユーザーが入力したパスワードをハッシュ化
@@ -40,28 +40,44 @@ authRouter.post("/api/signup", async (req, res) => {
 });
 
 // Sign In Route
-authRouter.post("/api/signin", async (req, res) => {
+authRouter.post('/api/signin', async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
       return res
         .status(400)
-        .json({ message: "User with this email does not exist!" });
+        .json({ message: 'User with this email does not exist!' });
     }
 
     const isMatch = bcryptjs.compare(password, user.password);
     if (!isMatch) {
       return res
         .status(400)
-        .json({ message: "Incorrect password! Please try again!" });
+        .json({ message: 'Incorrect password! Please try again!' });
     }
 
-    const token = jwt.sign({ id: user._id }, "passwordKey");
+    const token = jwt.sign({ id: user._id }, 'passwordKey');
     res.json({ token, ...user._doc });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// tokenIsValid
+authRouter.post('/tokenIsValid', async (req, res) => {
+  try {
+    const token = req.headers('x-auth-token');
+    if (!token) return res.json(false);
+
+    const verified = jwt.verify(token, 'passwordKey');
+    if (!verified) return res.json(false);
+
+    const user = await User.findById(verified.id);
+    if (!user) return res.json(false);
+
+    res.json(true);
+  } catch (error) {}
 });
 
 // export することによって server/index.js で import できる。
