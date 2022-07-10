@@ -6,6 +6,7 @@ import 'router.dart';
 import 'utils/provider_scope.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final overrides = await providerScopeOverrides;
   runApp(
     ProviderScope(
