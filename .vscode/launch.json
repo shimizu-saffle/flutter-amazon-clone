@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Current Device",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "Android 12 (API 32) (emulator)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "emulator-5554"
+    },
+    {
+      "name": "iPhone SE (3rd generation) (mobile)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "D8365A2D-EB8B-4737-A5E2-14CBFC32F443"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "All Devices",
+      "configurations": [
+        "Android 12 (API 32) (emulator)",
+        "iPhone SE (3rd generation) (mobile)"
+      ]
+    }
+  ]
+}
