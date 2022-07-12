@@ -7,6 +7,7 @@ import '../../../constants/global_variables.dart';
 import '../../../constants/utils.dart';
 import '../../../models/user/user.dart';
 import '../../../providers/dio_provider.dart';
+import '../../../providers/shared_preferences_provider.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.read));
 
@@ -74,6 +75,39 @@ class AuthRepository {
     return null;
   }
 
-  // get user data
+  Future<void> getUserData({required BuildContext context}) async {
+    try {
+      final preference = _read(sharedPreferencesProvider);
+      final token = preference.getString('x-auth-token');
 
+      if (token == null) {
+        await preference.setString('x-auth-token', '');
+      }
+
+      final tokenResponse = await _read(dioProvider).post<Map<String, dynamic>>(
+        '$baseUrl/api/user',
+        options: Options(
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token!,
+          },
+        ),
+      );
+
+      if (tokenResponse.statusCode == 200) {
+        final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
+          '$baseUrl/',
+          options: Options(
+            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+          ),
+        );
+        dioErrorHandling(
+          response: userResponse,
+          context: context,
+        );
+      }
+    } on DioError catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }
