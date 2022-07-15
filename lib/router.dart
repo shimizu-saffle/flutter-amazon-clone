@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'domain/auth/controllers/auth_controller.dart';
 import 'domain/auth/pages/auth_page.dart';
 import 'domain/home/pages/home_page.dart';
 
 final routerProvider = Provider<GoRouter>(
-  (_) {
+  (ref) {
     return GoRouter(
       routes: [
         GoRoute(
@@ -16,6 +17,13 @@ final routerProvider = Provider<GoRouter>(
             key: state.pageKey,
             child: AuthPage(),
           ),
+          redirect: (state) {
+            final isLoggedIn = ref.watch(authControllerProvider).token.isNotEmpty;
+            if (isLoggedIn) {
+              return HomePage.routePath;
+            }
+            return null;
+          },
         ),
         GoRoute(
           path: HomePage.routePath,

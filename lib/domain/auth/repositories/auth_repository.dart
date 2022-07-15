@@ -75,7 +75,7 @@ class AuthRepository {
     return null;
   }
 
-  Future<User?> getUserData({required BuildContext context}) async {
+  Future<User?> getUserData() async {
     try {
       final preference = _read(sharedPreferencesProvider);
       final token = preference.getString('x-auth-token');
@@ -101,14 +101,10 @@ class AuthRepository {
             headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
           ),
         );
-        dioErrorHandling(
-          response: userResponse,
-          context: context,
-        );
         return User.fromJson(userResponse.data!);
       }
     } on DioError catch (e) {
-      showSnackBar(context, e.toString());
+      debugPrint(e.toString());
     }
     return null;
   }

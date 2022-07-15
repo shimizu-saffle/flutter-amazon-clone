@@ -10,7 +10,9 @@ final authControllerProvider =
     StateNotifierProvider<AuthController, User>((ref) => AuthController(ref.read));
 
 class AuthController extends StateNotifier<User> {
-  AuthController(this._read) : super(const User(name: '', email: '', password: ''));
+  AuthController(this._read) : super(const User(name: '', email: '', password: '')) {
+    getUserData();
+  }
 
   final Reader _read;
 
@@ -30,14 +32,10 @@ class AuthController extends StateNotifier<User> {
   }
 
   // get user data from server
-  Future<void> getUserData({
-    required BuildContext context,
-    required VoidCallback onSuccess,
-  }) async {
-    final currentUser = await _read(authRepositoryProvider).getUserData(context: context);
+  Future<void> getUserData() async {
+    final currentUser = await _read(authRepositoryProvider).getUserData();
     if (currentUser != null) {
       state = currentUser;
-      onSuccess();
     }
   }
 }
