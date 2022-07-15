@@ -28,4 +28,16 @@ class AuthController extends StateNotifier<User> {
       onSuccess();
     }
   }
+
+  // get user data from server
+  Future<void> getUserData({
+    required BuildContext context,
+    required VoidCallback onSuccess,
+  }) async {
+    final currentUser = await _read(authRepositoryProvider).getUserData(context: context);
+    if (currentUser != null) {
+      state = currentUser;
+      onSuccess();
+    }
+  }
 }
