@@ -9,6 +9,14 @@ import 'domain/home/pages/home_page.dart';
 final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
+      redirect: (state) {
+        final path = state.subloc;
+        final isLoggedIn = ref.watch(authControllerProvider).token.isNotEmpty;
+        if (isLoggedIn && path == AuthPage.routePath) {
+          return HomePage.routePath;
+        }
+        return null;
+      },
       routes: [
         GoRoute(
           path: AuthPage.routePath,
@@ -17,13 +25,6 @@ final routerProvider = Provider<GoRouter>(
             key: state.pageKey,
             child: AuthPage(),
           ),
-          redirect: (state) {
-            final isLoggedIn = ref.watch(authControllerProvider).token.isNotEmpty;
-            if (isLoggedIn) {
-              return HomePage.routePath;
-            }
-            return null;
-          },
         ),
         GoRoute(
           path: HomePage.routePath,
