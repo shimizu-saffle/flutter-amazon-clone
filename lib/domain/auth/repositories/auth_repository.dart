@@ -70,6 +70,7 @@ class AuthRepository {
       );
       return User.fromJson(response.data!);
     } on DioError catch (e) {
+      debugPrint(e.toString());
       showSnackBar(context, e.toString());
     }
     return null;
@@ -84,8 +85,8 @@ class AuthRepository {
         await preference.setString('x-auth-token', '');
       }
 
-      final tokenResponse = await _read(dioProvider).post<Map<String, dynamic>>(
-        '$baseUrl/api/user',
+      final tokenResponse = await _read(dioProvider).post<bool>(
+        '$baseUrl/tokenIsValid',
         options: Options(
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -95,10 +96,14 @@ class AuthRepository {
       );
 
       if (tokenResponse.statusCode == 200) {
+        // TODO(shimizu-saffle): この処理がうまくいってないので修正する
         final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
           '$baseUrl/',
           options: Options(
-            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'x-auth-token': token
+            },
           ),
         );
         return User.fromJson(userResponse.data!);
