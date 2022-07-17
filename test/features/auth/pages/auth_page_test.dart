@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/common/widgets/custom_button.dart';
 import 'package:flutter_amazon_clone/domain/auth/pages/auth_page.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
   testWidgets(
     'AuthPage UI Test',
     (WidgetTester tester) async {
       final Widget testWidget = MaterialApp(
-        home: AuthPage(),
+        home: ProviderScope(child: AuthPage()),
       );
 
       await tester.pumpWidget(testWidget);
