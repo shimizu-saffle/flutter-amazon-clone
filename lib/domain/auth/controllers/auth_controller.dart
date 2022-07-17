@@ -31,10 +31,11 @@ class AuthController extends StateNotifier<User> {
     }
   }
 
-  // get user data from server
   Future<void> getUserData() async {
     final currentUser = await _read(authRepositoryProvider).getUserData();
-    if (currentUser != null) {
+    if (currentUser == null) {
+      state = state.copyWith(token: '');
+    } else {
       state = currentUser;
     }
   }

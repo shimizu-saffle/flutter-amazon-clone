@@ -83,6 +83,11 @@ class AuthRepository {
 
       if (token == null) {
         await preference.setString('x-auth-token', '');
+        return null;
+      }
+
+      if (token.isEmpty) {
+        return null;
       }
 
       final tokenResponse = await _read(dioProvider).post<bool>(
@@ -90,7 +95,7 @@ class AuthRepository {
         options: Options(
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': token!,
+            'x-auth-token': token,
           },
         ),
       );

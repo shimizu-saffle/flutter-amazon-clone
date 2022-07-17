@@ -12,7 +12,8 @@ final routerProvider = Provider<GoRouter>(
     return GoRouter(
       redirect: (state) {
         final path = state.subloc;
-        final authToken = ref.watch(authControllerProvider).token;
+        final authController = ref.watch(authControllerProvider);
+        final authToken = authController.token;
         if (authToken == null) {
           return null;
         }
@@ -20,6 +21,12 @@ final routerProvider = Provider<GoRouter>(
           switch (path) {
             case LoadingPage.routePath:
               return HomePage.routePath;
+          }
+        }
+        if (authToken.isEmpty) {
+          switch (path) {
+            case LoadingPage.routePath:
+              return AuthPage.routePath;
           }
         }
         return null;
