@@ -100,7 +100,7 @@ class AuthRepository {
         ),
       );
 
-      if (tokenResponse.statusCode == 200) {
+      if (tokenResponse.data == true) {
         final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
           '$baseUrl/',
           options: Options(
