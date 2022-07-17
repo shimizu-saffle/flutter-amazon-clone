@@ -11,7 +11,7 @@ final authControllerProvider =
 
 class AuthController extends StateNotifier<User> {
   AuthController(this._read) : super(const User(name: '', email: '', password: '')) {
-    // getUserData();
+    getUserData();
   }
 
   final Reader _read;

@@ -6,7 +6,7 @@ import '../../auth/controllers/auth_controller.dart';
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
   static const routeName = 'home';
-  static const String routePath = '/home';
+  static const routePath = '/home';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

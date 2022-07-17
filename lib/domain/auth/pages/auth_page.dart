@@ -19,7 +19,7 @@ enum AuthStatus {
 class AuthPage extends HookConsumerWidget {
   AuthPage({super.key});
   static const routeName = 'auth';
-  static const routePath = '/';
+  static const routePath = '/auth';
   final signUpFormKey = GlobalKey<FormState>();
   final signInFormKey = GlobalKey<FormState>();
 
