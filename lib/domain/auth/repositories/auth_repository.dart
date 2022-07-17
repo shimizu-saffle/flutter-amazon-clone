@@ -96,7 +96,6 @@ class AuthRepository {
       );
 
       if (tokenResponse.statusCode == 200) {
-        // TODO(shimizu-saffle): この処理がうまくいってないので修正する
         final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
           '$baseUrl/',
           options: Options(

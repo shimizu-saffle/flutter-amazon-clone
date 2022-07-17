@@ -13,7 +13,7 @@ class User with _$User {
     required String password,
     @Default('') String address,
     @Default('') String type,
-    @Default('') String token,
+    String? token,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

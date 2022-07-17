@@ -11,7 +11,7 @@ final authControllerProvider =
 
 class AuthController extends StateNotifier<User> {
   AuthController(this._read) : super(const User(name: '', email: '', password: '')) {
-    getUserData();
+    // getUserData();
   }
 
   final Reader _read;
@@ -25,7 +25,7 @@ class AuthController extends StateNotifier<User> {
     final currentUser = await _read(authRepositoryProvider)
         .signInUser(context: context, email: email, password: password);
     if (currentUser != null) {
-      await _read(sharedPreferencesProvider).setString('x-auth-token', currentUser.token);
+      await _read(sharedPreferencesProvider).setString('x-auth-token', currentUser.token!);
       state = currentUser;
       onSuccess();
     }

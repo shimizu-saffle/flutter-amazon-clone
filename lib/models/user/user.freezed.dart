@@ -26,7 +26,7 @@ mixin _$User {
   String get password => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  String get token => throw _privateConstructorUsedError;
+  String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,8 @@ mixin _$User {
 
 /// @nodoc
 abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) = _$UserCopyWithImpl<$Res>;
+  factory $UserCopyWith(User value, $Res Function(User) then) =
+      _$UserCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String name,
@@ -43,7 +44,7 @@ abstract class $UserCopyWith<$Res> {
       String password,
       String address,
       String type,
-      String token});
+      String? token});
 }
 
 /// @nodoc
@@ -92,7 +93,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -109,7 +110,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String password,
       String address,
       String type,
-      String token});
+      String? token});
 }
 
 /// @nodoc
@@ -159,7 +160,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -174,7 +175,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       required this.password,
       this.address = '',
       this.type = '',
-      this.token = ''});
+      this.token});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -194,8 +195,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   @JsonKey()
   final String type;
   @override
-  @JsonKey()
-  final String token;
+  final String? token;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -244,7 +244,8 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 
   @JsonKey(ignore: true)
   @override
-  _$$_UserCopyWith<_$_User> get copyWith => __$$_UserCopyWithImpl<_$_User>(this, _$identity);
+  _$$_UserCopyWith<_$_User> get copyWith =>
+      __$$_UserCopyWithImpl<_$_User>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -260,7 +261,7 @@ abstract class _User implements User {
       required final String password,
       final String address,
       final String type,
-      final String token}) = _$_User;
+      final String? token}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -277,7 +278,7 @@ abstract class _User implements User {
   @override
   String get type => throw _privateConstructorUsedError;
   @override
-  String get token => throw _privateConstructorUsedError;
+  String? get token => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
