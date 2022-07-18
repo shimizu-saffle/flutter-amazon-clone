@@ -9,11 +9,25 @@ import '../../../providers/shared_preferences_provider.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.read));
 
-class AuthRepository {
+abstract class AbstractAuthRepository {
+  Future<void> signUpUser({
+    required User user,
+  });
+
+  Future<void> signInUser({
+    required String email,
+    required String password,
+  });
+
+  Future<void> getUserData();
+}
+
+class AuthRepository implements AbstractAuthRepository {
   AuthRepository(this._read);
 
   final Reader _read;
 
+  @override
   Future<void> signUpUser({
     required User user,
   }) async {
@@ -30,6 +44,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<User?> signInUser({
     required String email,
     required String password,
@@ -53,6 +68,7 @@ class AuthRepository {
     return null;
   }
 
+  @override
   Future<User?> getUserData() async {
     try {
       final preference = _read(sharedPreferencesProvider);
