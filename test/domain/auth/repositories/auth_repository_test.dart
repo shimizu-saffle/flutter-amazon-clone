@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_amazon_clone/constants/global_variables.dart';
 import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/models/user/user.dart';
 import 'package:flutter_amazon_clone/providers/dio_provider.dart';
@@ -33,15 +32,14 @@ Future<void> main() async {
         await tester.pumpWidget(
           Builder(
             builder: (BuildContext context) {
-              final path = '$baseUrl/api/signin';
+              // final path = '$baseUrl/api/signin';
               final user = User.fromJson(mockUserData);
 
-              dioAdapter.onPost(path, (request) {
-                request.reply(200, mockUserData);
-              });
+              // dioAdapter.onPost(path, (request) {
+              //   request.reply(200, mockUserData);
+              // });
 
               final response = container.read(authRepositoryProvider).signInUser(
-                    context: context,
                     email: user.email,
                     password: user.password,
                   );

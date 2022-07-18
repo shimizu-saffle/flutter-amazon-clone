@@ -7,9 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../../../constants/global_variables.dart';
+import '../../../constants/utils.dart';
 import '../../home/pages/home_page.dart';
 import '../controllers/auth_controller.dart';
-import '../repositories/auth_repository.dart';
 
 enum AuthStatus {
   signIn,
@@ -26,7 +26,7 @@ class AuthPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authStatus = useState<AuthStatus>(AuthStatus.signUp);
-    final authRepository = ref.watch(authRepositoryProvider);
+    final authController = ref.watch(authControllerProvider.notifier);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
@@ -90,11 +90,14 @@ class AuthPage extends HookConsumerWidget {
                             text: 'Sign Up',
                             onPressed: () {
                               if (signUpFormKey.currentState!.validate()) {
-                                authRepository.signUpUser(
-                                  context: context,
+                                authController.signUpUser(
                                   email: emailController.text,
                                   password: passwordController.text,
                                   name: nameController.text,
+                                  onSuccess: () => showSnackBar(
+                                    context,
+                                    'Account created! Login with the same credentials!',
+                                  ),
                                 );
                               }
                             },
@@ -141,7 +144,6 @@ class AuthPage extends HookConsumerWidget {
                             onPressed: () {
                               if (signInFormKey.currentState!.validate()) {
                                 ref.read(authControllerProvider.notifier).signInUser(
-                                      context: context,
                                       email: emailController.text,
                                       password: passwordController.text,
                                       onSuccess: () => context.go(HomePage.routePath),
