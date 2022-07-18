@@ -7,7 +7,9 @@ import '../../../models/user/user.dart';
 import '../../../providers/dio_provider.dart';
 import '../../../providers/shared_preferences_provider.dart';
 
-final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.read));
+final authRepositoryProvider = Provider<AuthRepository>(
+  (ref) => AuthRepository(ref.read),
+);
 
 abstract class AbstractAuthRepository {
   Future<void> signUpUser({
@@ -33,7 +35,7 @@ class AuthRepository implements AbstractAuthRepository {
   }) async {
     try {
       await _read(dioProvider).post<Map<String, dynamic>>(
-        '$baseUrl/api/signup',
+        '/api/signup',
         data: user.toJson(),
         options: Options(
           headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
@@ -48,10 +50,11 @@ class AuthRepository implements AbstractAuthRepository {
   Future<User?> signInUser({
     required String email,
     required String password,
+    String url = '$baseUrl/api/signin',
   }) async {
     try {
       final response = await _read(dioProvider).post<Map<String, dynamic>>(
-        '$baseUrl/api/signin',
+        url,
         data: {
           'email': email,
           'password': password,
@@ -84,7 +87,7 @@ class AuthRepository implements AbstractAuthRepository {
       }
 
       final tokenResponse = await _read(dioProvider).post<bool>(
-        '$baseUrl/tokenIsValid',
+        '/tokenIsValid',
         options: Options(
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -95,7 +98,7 @@ class AuthRepository implements AbstractAuthRepository {
 
       if (tokenResponse.data == true) {
         final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
-          '$baseUrl/',
+          '/',
           options: Options(
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
