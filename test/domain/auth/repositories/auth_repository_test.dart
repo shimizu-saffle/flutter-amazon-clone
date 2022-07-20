@@ -41,28 +41,58 @@ Future<void> main() async {
         },
       );
 
-      test('signInUser メソッドのリクエストの email と レスポンスの email は一致するはず', () async {
-        const testSignInRoute = '$testBaseUrl/test/signin';
+      test(
+        'signInUser メソッドのリクエストの email と レスポンスの email は一致するはず',
+        () async {
+          const testSignInRoute = '$testBaseUrl/test/signin';
 
-        final user = User.fromJson(mockUserCredentials);
+          final user = User.fromJson(mockUserCredentials);
 
-        dioAdapter.onPost(
-          testSignInRoute,
-          (server) => server.reply(200, user),
-          data: {
-            'email': 'test@example.com',
-            'password': 'password',
-          },
-        );
+          dioAdapter.onPost(
+            testSignInRoute,
+            (server) => server.reply(200, user),
+            data: {
+              'email': 'test@example.com',
+              'password': 'password',
+            },
+          );
 
-        final response = await container.read(authRepositoryProvider).signInUser(
-              url: testSignInRoute,
-              email: user.email,
-              password: user.password,
-            );
+          final response = await container.read(authRepositoryProvider).signInUser(
+                url: testSignInRoute,
+                email: user.email,
+                password: user.password,
+              );
 
-        expect(response?.email, user.email);
-      });
+          expect(response?.email, user.email);
+        },
+      );
+
+      test(
+        'user credentials が正しくない場合は null が 返されるはず',
+        () async {
+          const testSignInRoute = '$testBaseUrl/test/signin';
+
+          dioAdapter.onPost(
+            testSignInRoute,
+            (server) => server.throws(
+              401,
+              DioError(
+                requestOptions: RequestOptions(
+                  path: testSignInRoute,
+                ),
+              ),
+            ),
+          );
+
+          final response = await container.read(authRepositoryProvider).signInUser(
+                email: 'hoge',
+                password: 'fuga',
+                url: testSignInRoute,
+              );
+
+          expect(response, null);
+        },
+      );
     },
   );
 }
