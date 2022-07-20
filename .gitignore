@@ -48,3 +48,5 @@ app.*.map.json
 
 # Visual Studio Code
 .vscode/settings.json
+
+test/example/http_mock_adapter_test_example.dart
