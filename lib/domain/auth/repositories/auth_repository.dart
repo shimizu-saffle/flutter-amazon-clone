@@ -72,7 +72,7 @@ class AuthRepository implements AbstractAuthRepository {
   }
 
   @override
-  Future<User?> getUserData() async {
+  Future<User?> getUserData({String url = '$baseUrl/tokenIsValid'}) async {
     try {
       final preference = _read(sharedPreferencesProvider);
       final token = preference.getString('x-auth-token');
@@ -87,7 +87,7 @@ class AuthRepository implements AbstractAuthRepository {
       }
 
       final tokenResponse = await _read(dioProvider).post<bool>(
-        '/tokenIsValid',
+        url,
         options: Options(
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -98,7 +98,7 @@ class AuthRepository implements AbstractAuthRepository {
 
       if (tokenResponse.data == true) {
         final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
-          '/',
+          '$baseUrl/',
           options: Options(
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
