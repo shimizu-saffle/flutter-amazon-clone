@@ -16,7 +16,6 @@ Future<void> main() async {
     'AuthRepository test',
     () {
       const testBaseUrl = 'https://test.com';
-
       const mockUserCredentials = <String, dynamic>{
         'name': 'mock name',
         'email': 'test@example.com',
@@ -47,7 +46,7 @@ Future<void> main() async {
           final user = User.fromJson(mockUserCredentials);
 
           dioAdapter.onPost(
-            '/api/signin',
+            AuthRepository.signinPath,
             (server) => server.reply(200, user),
             data: {
               'email': 'test@example.com',
@@ -68,7 +67,7 @@ Future<void> main() async {
         'user credentials が正しくない場合は null が 返されるはず',
         () async {
           dioAdapter.onPost(
-            '/api/signin',
+            AuthRepository.signinPath,
             (server) => server.throws(
               401,
               DioError(

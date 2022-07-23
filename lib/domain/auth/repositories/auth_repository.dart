@@ -25,6 +25,10 @@ abstract class AbstractAuthRepository {
 
 class AuthRepository implements AbstractAuthRepository {
   AuthRepository(this._read);
+  static const signupPath = '/api/signup';
+  static const signinPath = '/api/signin';
+  static const tokenIsValidPath = '/tokenIsValid';
+  static const userInformationPath = '/';
 
   final Reader _read;
 
@@ -34,7 +38,7 @@ class AuthRepository implements AbstractAuthRepository {
   }) async {
     try {
       await _read(dioProvider).post<Map<String, dynamic>>(
-        '/api/signup',
+        AuthRepository.signupPath,
         data: user.toJson(),
       );
     } on DioError catch (e) {
@@ -49,7 +53,7 @@ class AuthRepository implements AbstractAuthRepository {
   }) async {
     try {
       final response = await _read(dioProvider).post<Map<String, dynamic>>(
-        '/api/signin',
+        AuthRepository.signinPath,
         data: {
           'email': email,
           'password': password,
@@ -78,7 +82,7 @@ class AuthRepository implements AbstractAuthRepository {
       }
 
       final tokenResponse = await _read(dioProvider).post<bool>(
-        '/tokenIsValid',
+        AuthRepository.tokenIsValidPath,
         options: Options(
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -89,7 +93,7 @@ class AuthRepository implements AbstractAuthRepository {
 
       if (tokenResponse.data == true) {
         final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
-          '/',
+          AuthRepository.userInformationPath,
           options: Options(
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
