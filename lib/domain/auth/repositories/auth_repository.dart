@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../constants/global_variables.dart';
 import '../../../models/user/user.dart';
 import '../../../providers/dio_provider.dart';
 import '../../../providers/shared_preferences_provider.dart';
@@ -50,11 +49,10 @@ class AuthRepository implements AbstractAuthRepository {
   Future<User?> signInUser({
     required String email,
     required String password,
-    String url = '$baseUrl/api/signin',
   }) async {
     try {
       final response = await _read(dioProvider).post<Map<String, dynamic>>(
-        url,
+        '/api/signin',
         data: {
           'email': email,
           'password': password,
@@ -72,7 +70,7 @@ class AuthRepository implements AbstractAuthRepository {
   }
 
   @override
-  Future<User?> getUserData({String url = '$baseUrl/tokenIsValid'}) async {
+  Future<User?> getUserData() async {
     try {
       final preference = _read(sharedPreferencesProvider);
       final token = preference.getString('x-auth-token');
@@ -87,7 +85,7 @@ class AuthRepository implements AbstractAuthRepository {
       }
 
       final tokenResponse = await _read(dioProvider).post<bool>(
-        url,
+        '/tokenIsValid',
         options: Options(
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -98,7 +96,7 @@ class AuthRepository implements AbstractAuthRepository {
 
       if (tokenResponse.data == true) {
         final userResponse = await _read(dioProvider).get<Map<String, dynamic>>(
-          '$baseUrl/',
+          '/',
           options: Options(
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',

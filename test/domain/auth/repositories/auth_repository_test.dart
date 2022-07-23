@@ -16,7 +16,6 @@ Future<void> main() async {
     'AuthRepository test',
     () {
       const testBaseUrl = 'https://test.com';
-
       const mockUserCredentials = <String, dynamic>{
         'name': 'mock name',
         'email': 'test@example.com',
@@ -44,7 +43,7 @@ Future<void> main() async {
       test(
         'signInUser メソッドのリクエストの email と レスポンスの email は一致するはず',
         () async {
-          const testSignInRoute = '$testBaseUrl/test/signin';
+          const testSignInRoute = '/api/signin';
 
           final user = User.fromJson(mockUserCredentials);
 
@@ -58,7 +57,6 @@ Future<void> main() async {
           );
 
           final response = await container.read(authRepositoryProvider).signInUser(
-                url: testSignInRoute,
                 email: user.email,
                 password: user.password,
               );
@@ -87,7 +85,6 @@ Future<void> main() async {
           final response = await container.read(authRepositoryProvider).signInUser(
                 email: 'hoge',
                 password: 'fuga',
-                url: testSignInRoute,
               );
 
           expect(response, null);
