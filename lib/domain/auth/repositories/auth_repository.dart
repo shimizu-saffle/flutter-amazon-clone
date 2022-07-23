@@ -36,9 +36,6 @@ class AuthRepository implements AbstractAuthRepository {
       await _read(dioProvider).post<Map<String, dynamic>>(
         '/api/signup',
         data: user.toJson(),
-        options: Options(
-          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-        ),
       );
     } on DioError catch (e) {
       debugPrint(e.toString());
@@ -57,11 +54,7 @@ class AuthRepository implements AbstractAuthRepository {
           'email': email,
           'password': password,
         },
-        options: Options(
-          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-        ),
       );
-
       return User.fromJson(response.data!);
     } on DioError catch (e) {
       debugPrint(e.toString());
