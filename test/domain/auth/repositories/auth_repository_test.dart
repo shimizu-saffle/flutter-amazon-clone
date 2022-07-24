@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/models/user/user.dart';
 import 'package:flutter_amazon_clone/providers/dio_provider.dart';
+import 'package:flutter_amazon_clone/providers/shared_preferences_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -126,6 +128,43 @@ Future<void> main() async {
             container.read(authRepositoryProvider).signUpUser(user: user),
             completes,
           );
+        },
+      );
+
+      // getUserData() 成功時のテスト
+      test(
+        'getUserData success',
+        () async {
+          const mockAuthToken = 'mock-auth-token';
+          SharedPreferences.setMockInitialValues({
+            'x-auth-token': mockAuthToken,
+          });
+          final mockPreference = await SharedPreferences.getInstance();
+          container = ProviderContainer(
+            overrides: [
+              dioProvider.overrideWithValue(dio),
+              sharedPreferencesProvider.overrideWithValue(mockPreference),
+            ],
+          );
+          dioAdapter
+            ..onPost(
+              AuthRepository.tokenIsValidPath,
+              (server) => server.reply(200, true),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'x-auth-token': mockAuthToken,
+              },
+            )
+            ..onPost(
+              AuthRepository.userInformationPath,
+              (server) => server.reply(200, mockUserCredentials),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'x-auth-token': mockAuthToken,
+              },
+            );
+          final response = await container.read(authRepositoryProvider).getUserData();
+          expect(response?.email, mockUserCredentials['email']);
         },
       );
     },
