@@ -167,6 +167,50 @@ Future<void> main() async {
           expect(response?.email, mockUserCredentials['email']);
         },
       );
+
+      // getUserData() 失敗時のテスト
+      test(
+        'getUserData failure',
+        () async {
+          const mockAuthToken = 'mock-auth-token';
+          SharedPreferences.setMockInitialValues({
+            'x-auth-token': mockAuthToken,
+          });
+          final mockPreference = await SharedPreferences.getInstance();
+          container = ProviderContainer(
+            overrides: [
+              dioProvider.overrideWithValue(dio),
+              sharedPreferencesProvider.overrideWithValue(mockPreference),
+            ],
+          );
+          dioAdapter
+            ..onPost(
+              AuthRepository.tokenIsValidPath,
+              (server) => server.reply(200, true),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'x-auth-token': mockAuthToken,
+              },
+            )
+            ..onPost(
+              AuthRepository.userInformationPath,
+              (server) => server.throws(
+                401,
+                DioError(
+                  requestOptions: RequestOptions(
+                    path: AuthRepository.userInformationPath,
+                  ),
+                ),
+              ),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'x-auth-token': mockAuthToken,
+              },
+            );
+          final response = await container.read(authRepositoryProvider).getUserData();
+          expect(response, null);
+        },
+      );
     },
   );
 }
