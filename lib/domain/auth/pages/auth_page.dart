@@ -20,6 +20,11 @@ class AuthPage extends HookConsumerWidget {
   AuthPage({super.key});
   static const routeName = 'auth';
   static const routePath = '/auth';
+  static const createAccountRadioKey = Key('auth_page_radio_button_1');
+  static const singInRadioKey = Key('auth_page_radio_button_2');
+  static const nameTextFieldKey = Key('name_text_field');
+  static const singInEmailTextFieldKey = Key('sing_in_email_text_field');
+  static const singInPasswordTextFieldKey = Key('sing_in_password_text_field');
   final signUpFormKey = GlobalKey<FormState>();
   final signInFormKey = GlobalKey<FormState>();
 
@@ -56,7 +61,7 @@ class AuthPage extends HookConsumerWidget {
                   ),
                   leading: Radio(
                     // Widget testで、このRadioを見つけやすくするためにkeyを指定
-                    key: const Key('auth_page_radio_button_1'),
+                    key: createAccountRadioKey,
                     activeColor: secondaryColor,
                     value: AuthStatus.signUp,
                     groupValue: authStatus.value,
@@ -114,7 +119,7 @@ class AuthPage extends HookConsumerWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   leading: Radio(
-                    key: const Key('auth_page_radio_button_2'),
+                    key: singInRadioKey,
                     activeColor: secondaryColor,
                     value: AuthStatus.signIn,
                     groupValue: authStatus.value,
@@ -131,11 +136,13 @@ class AuthPage extends HookConsumerWidget {
                         children: [
                           const Gap(10),
                           CustomTextField(
+                            key: singInEmailTextFieldKey,
                             controller: emailController,
                             hintText: 'Email',
                           ),
                           const Gap(10),
                           CustomTextField(
+                            key: singInPasswordTextFieldKey,
                             controller: passwordController,
                             hintText: 'Password',
                           ),
