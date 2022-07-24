@@ -96,8 +96,31 @@ Future<void> main() async {
           final user = User.fromJson(mockUserCredentials);
           dioAdapter.onPost(
             AuthRepository.signupPath,
-            (server) => server.reply(200, user),
+            (server) => server.reply(200, null),
             data: user.toJson(),
+          );
+          await expectLater(
+            container.read(authRepositoryProvider).signUpUser(user: user),
+            completes,
+          );
+        },
+      );
+
+      // signUpUser() 失敗時のテスト
+      test(
+        'signUpUser failure',
+        () async {
+          final user = User.fromJson(mockUserCredentials);
+          dioAdapter.onPost(
+            AuthRepository.signupPath,
+            (server) => server.throws(
+              401,
+              DioError(
+                requestOptions: RequestOptions(
+                  path: AuthRepository.signupPath,
+                ),
+              ),
+            ),
           );
           await expectLater(
             container.read(authRepositoryProvider).signUpUser(user: user),
