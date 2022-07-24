@@ -40,6 +40,7 @@ Future<void> main() async {
         },
       );
 
+      // signInUser() 成功時のテスト
       test(
         'signInUser メソッドのリクエストの email と レスポンスの email は一致するはず',
         () async {
@@ -63,6 +64,7 @@ Future<void> main() async {
         },
       );
 
+      // signInUser() 失敗時のテスト
       test(
         'user credentials が正しくない場合は null が 返されるはず',
         () async {
@@ -84,6 +86,23 @@ Future<void> main() async {
               );
 
           expect(response, null);
+        },
+      );
+
+      // signUpUser() 成功時のテスト
+      test(
+        'signUpUser success',
+        () async {
+          final user = User.fromJson(mockUserCredentials);
+          dioAdapter.onPost(
+            AuthRepository.signupPath,
+            (server) => server.reply(200, user),
+            data: user.toJson(),
+          );
+          await expectLater(
+            container.read(authRepositoryProvider).signUpUser(user: user),
+            completes,
+          );
         },
       );
     },
