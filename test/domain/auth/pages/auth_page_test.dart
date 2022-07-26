@@ -27,13 +27,27 @@ void main() {
 
       // 2つ目のRadioボタンをタップ
       // Keyを指定しているとWidgetを見つけやすい
-      await tester.tap(find.byKey(const Key('auth_page_radio_button_2')));
+      await tester.tap(find.byKey(AuthPage.singInRadioKey));
 
       // pump()でページを更新しないとSign Inボタンは見つからない
       await tester.pump();
+
+      // テキストフィールドを入力する
+      final singInEmailTextFieldFinder = find.byKey(AuthPage.singInEmailTextFieldKey);
+      final singInPasswordTextFieldFinder = find.byKey(AuthPage.singInPasswordTextFieldKey);
+
+      await tester.enterText(singInEmailTextFieldFinder, 'test@gmail.com');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+
+      await tester.enterText(singInPasswordTextFieldFinder, 'test-password');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+
+      await tester.pumpAndSettle();
+
       await tester.tap(find.text('Sign In'));
 
-      await tester.tap(find.byKey(const Key('auth_page_radio_button_1')));
+      // Sign Up
+      await tester.tap(find.byKey(AuthPage.createAccountRadioKey));
       await tester.pump();
 
       // Sign Upボタンをタップ
