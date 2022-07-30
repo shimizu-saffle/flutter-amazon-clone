@@ -15,12 +15,12 @@ abstract class AbstractAuthRepository {
     required User user,
   });
 
-  Future<void> signInUser({
+  Future<User?> signInUser({
     required String email,
     required String password,
   });
 
-  Future<void> getUserData();
+  Future<User?> getUserData();
 }
 
 class AuthRepository implements AbstractAuthRepository {
