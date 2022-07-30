@@ -9,9 +9,16 @@ class MockAuthRepository implements AbstractAuthRepository {
   }
 
   @override
-  Future<User?> signInUser({required String email, required String password}) {
-    // TODO: implement signInUser
-    throw UnimplementedError();
+  Future<User?> signInUser({
+    required String email,
+    required String password,
+  }) async {
+    final user = User(
+      name: 'mock-name',
+      email: email,
+      password: password,
+    );
+    return user;
   }
 
   @override
