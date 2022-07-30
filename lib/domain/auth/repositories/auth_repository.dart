@@ -6,7 +6,7 @@ import '../../../models/user/user.dart';
 import '../../../providers/dio_provider.dart';
 import '../../../providers/shared_preferences_provider.dart';
 
-final authRepositoryProvider = Provider<AuthRepository>(
+final authRepositoryProvider = Provider<AbstractAuthRepository>(
   (ref) => AuthRepository(ref.read),
 );
 
