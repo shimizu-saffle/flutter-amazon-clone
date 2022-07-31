@@ -40,10 +40,11 @@ void main() {
       // pump()でページを更新しないとSign Inボタンは見つからない
       await tester.pump();
 
-      // テキストフィールドを入力する
+      // テキストフィールドを見つける
       final singInEmailTextFieldFinder = find.byKey(AuthPage.singInEmailTextFieldKey);
       final singInPasswordTextFieldFinder = find.byKey(AuthPage.singInPasswordTextFieldKey);
 
+      // テキストフィールドを入力する
       await tester.enterText(singInEmailTextFieldFinder, 'test@gmail.com');
       await tester.testTextInput.receiveAction(TextInputAction.done);
 
@@ -52,9 +53,12 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // ここが原因
-      // Sign In ボタン内の処理をコメントアウトしたら、テストが通った
+      // Sign-In のテキストフィールドに メールアドレスとパスワードが入力されている状態で、
+      // Sign In ボタンをタップ
       await tester.tap(find.text('Sign In'));
+
+      // No GoRouter found in context でテストが失敗する...
+      // TODO(shimizu-saffle): GoRouter のテストの書き方を調べる
 
       // Sign Up
       await tester.tap(find.byKey(AuthPage.createAccountRadioKey));
