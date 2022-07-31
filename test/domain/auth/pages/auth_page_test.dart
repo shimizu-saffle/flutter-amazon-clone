@@ -5,7 +5,6 @@ import 'package:flutter_amazon_clone/domain/home/pages/home_page.dart';
 import 'package:flutter_amazon_clone/utils/provider_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../mock/mock_go_router_provider.dart';
@@ -63,8 +62,11 @@ void main() {
       // Sign In ボタンをタップ
       await tester.tap(find.text('Sign In'));
 
-      // HomePage への mockGoRouter.go が呼ばれていることを確認
-      verify(() => mockGoRouter.go(HomePage.routePath)).called(1);
+      // context.go(HomePage.routePath) が呼ばれることを確認する方法
+      // verify(() => mockGoRouter.go(HomePage.routePath)).called(1);
+
+      // calledLocations に HomePage.routePath が含まれていることを確認
+      expect(mockGoRouter.calledLocations.contains(HomePage.routePath), true);
     },
   );
 }

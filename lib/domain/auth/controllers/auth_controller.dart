@@ -41,7 +41,6 @@ class AuthController extends StateNotifier<User> {
       password: password,
     );
     if (currentUser != null) {
-      // TODO(shimizu-saffle): モックユーザーに token を持たせる
       await _read(sharedPreferencesProvider).setString('x-auth-token', currentUser.token!);
       state = currentUser;
       onSuccess();
