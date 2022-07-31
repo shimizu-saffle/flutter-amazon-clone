@@ -13,7 +13,7 @@ import '../../../mock/router/mock_go_router_provider.dart';
 
 void main() {
   testWidgets(
-    '正しくメールアドレスとパスワードを入力した場合、Sign In ボタン押下時に context.go(HomePage.routePath) が呼ばれるはず',
+    'メールアドレスとパスワードを入力して、Sign In ボタンを押すと context.go(HomePage.routePath) が呼ばれるはず',
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
       final overrides = await providerScopeOverrides;
@@ -35,15 +35,15 @@ void main() {
 
       await tester.pumpWidget(testWidget);
 
-      // ジェネリクスでvalueプロパティに代入している値の型を指定しないとRadioは見つからない
+      // 見つけたい Radio のジェネリクスまで書かないとRadioは見つからない
       final radioFinder = find.byType(Radio<AuthStatus>);
       expect(radioFinder, findsNWidgets(2));
 
       // 2つ目のRadioボタンをタップ
-      // Keyを指定しているとWidgetを見つけやすい
+      // Key を指定していると Widget を見つけるのが容易になる
       await tester.tap(find.byKey(AuthPage.singInRadioKey));
 
-      // pump()でページを更新しないとSign Inボタンは見つからない
+      // pump() でページを更新しないと Sign In ボタンは見つからない
       await tester.pump();
 
       // テキストフィールドを見つける
