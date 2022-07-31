@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/common/widgets/custom_button.dart';
 import 'package:flutter_amazon_clone/domain/auth/pages/auth_page.dart';
+import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/utils/provider_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../mock_repositories/mock_auth_repository.dart';
 
 void main() {
   testWidgets(
@@ -14,7 +17,12 @@ void main() {
       final overrides = await providerScopeOverrides;
       final Widget testWidget = MaterialApp(
         home: ProviderScope(
-          overrides: overrides,
+          overrides: [
+            ...overrides,
+            authRepositoryProvider.overrideWithValue(
+              MockAuthRepository(),
+            ),
+          ],
           child: AuthPage(),
         ),
       );
@@ -44,6 +52,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
+      // ここが原因
+      // Sign In ボタン内の処理をコメントアウトしたら、テストが通った
       await tester.tap(find.text('Sign In'));
 
       // Sign Up
