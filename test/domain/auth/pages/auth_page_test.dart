@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_amazon_clone/common/widgets/custom_button.dart';
 import 'package:flutter_amazon_clone/domain/auth/pages/auth_page.dart';
 import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
+import 'package:flutter_amazon_clone/domain/home/pages/home_page.dart';
 import 'package:flutter_amazon_clone/utils/provider_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../mock/mock_go_router_provider.dart';
 import '../../../mock/mock_repositories/mock_auth_repository.dart';
 
 void main() {
   testWidgets(
-    'AuthPage UI Test',
+    '正しくメールアドレスとパスワードを入力した場合、Sign In ボタン押下時に context.go(HomePage.routePath) が呼ばれるはず',
     (WidgetTester tester) async {
       SharedPreferences.setMockInitialValues({});
       final overrides = await providerScopeOverrides;
+      final mockGoRouter = MockGoRouter();
       final Widget testWidget = MaterialApp(
         home: ProviderScope(
           overrides: [
@@ -23,7 +26,10 @@ void main() {
               MockAuthRepository(),
             ),
           ],
-          child: AuthPage(),
+          child: MockGoRouterProvider(
+            goRouter: mockGoRouter,
+            child: AuthPage(),
+          ),
         ),
       );
 
@@ -57,15 +63,8 @@ void main() {
       // Sign In ボタンをタップ
       await tester.tap(find.text('Sign In'));
 
-      // No GoRouter found in context でテストが失敗する...
-      // TODO(shimizu-saffle): GoRouter のテストの書き方を調べる
-
-      // Sign Up
-      await tester.tap(find.byKey(AuthPage.createAccountRadioKey));
-      await tester.pump();
-
-      // Sign Upボタンをタップ
-      await tester.tap(find.byType(CustomButton).first);
+      // HomePage への mockGoRouter.go が呼ばれていることを確認
+      verify(() => mockGoRouter.go(HomePage.routePath)).called(1);
     },
   );
 }
