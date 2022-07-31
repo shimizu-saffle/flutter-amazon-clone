@@ -3,9 +3,13 @@ import 'package:flutter_amazon_clone/models/user/user.dart';
 
 class MockAuthRepository implements AbstractAuthRepository {
   @override
-  Future<User?> getUserData() {
-    // TODO: implement getUserData
-    throw UnimplementedError();
+  Future<User?> getUserData() async {
+    const mockUserCredentials = <String, dynamic>{
+      'name': 'mock name',
+      'email': 'test@example.com',
+      'password': 'password',
+    };
+    return User.fromJson(mockUserCredentials);
   }
 
   @override
@@ -22,8 +26,5 @@ class MockAuthRepository implements AbstractAuthRepository {
   }
 
   @override
-  Future<void> signUpUser({required User user}) {
-    // TODO: implement signUpUser
-    throw UnimplementedError();
-  }
+  Future<void> signUpUser({required User user}) async {}
 }
