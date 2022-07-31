@@ -21,6 +21,7 @@ class MockAuthRepository implements AbstractAuthRepository {
       name: 'mock-name',
       email: email,
       password: password,
+      token: 'mock-token',
     );
     return user;
   }
