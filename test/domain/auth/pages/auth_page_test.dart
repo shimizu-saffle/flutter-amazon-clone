@@ -7,8 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../mock/mock_go_router_provider.dart';
-import '../../../mock/mock_repositories/mock_auth_repository.dart';
+import '../../../mock/repositories/mock_auth_repository.dart';
+import '../../../mock/router/mock_go_router.dart';
+import '../../../mock/router/mock_go_router_provider.dart';
 
 void main() {
   testWidgets(
