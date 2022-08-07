@@ -47,7 +47,6 @@ class AuthRepository implements AbstractAuthRepository {
     }
   }
 
-  // TODO(shimizu-saffle): ResponseResult で返すようにする
   @override
   Future<ResponseResult<User?>> signInUser({
     required String email,

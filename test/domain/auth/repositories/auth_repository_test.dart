@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
+import 'package:flutter_amazon_clone/models/response_result/response_result.dart';
 import 'package:flutter_amazon_clone/models/user/user.dart';
 import 'package:flutter_amazon_clone/providers/dio_provider.dart';
 import 'package:flutter_amazon_clone/providers/shared_preferences_provider.dart';
@@ -81,7 +82,7 @@ Future<void> main() async {
 
       // signInUser() 失敗時のテスト
       test(
-        'user credentials が正しくない場合は null が 返されるはず',
+        'user credentials が正しくない場合 の ResponseResult は　failure のはず',
         () async {
           dioAdapter.onPost(
             AuthRepository.signinPath,
@@ -94,13 +95,11 @@ Future<void> main() async {
               ),
             ),
           );
-
           final response = await container.read(authRepositoryProvider).signInUser(
                 email: 'hoge',
                 password: 'fuga',
               );
-
-          expect(response, null);
+          expect(response, const ResponseResult<User?>.failure(message: ''));
         },
       );
 
