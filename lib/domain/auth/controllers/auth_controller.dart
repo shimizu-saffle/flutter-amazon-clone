@@ -36,15 +36,24 @@ class AuthController extends StateNotifier<User> {
     required String password,
     required VoidCallback onSuccess,
   }) async {
-    final currentUser = await _read(authRepositoryProvider).signInUser(
+    final response = await _read(authRepositoryProvider).signInUser(
       email: email,
       password: password,
     );
-    if (currentUser != null) {
-      await _read(sharedPreferencesProvider).setString('x-auth-token', currentUser.token!);
-      state = currentUser;
-      onSuccess();
-    }
+    await response.when(
+      success: (responseData, message, success) async {
+        final token = responseData!.token;
+        await _read(sharedPreferencesProvider).setString('x-auth-token', token!);
+        state = responseData;
+        onSuccess();
+      },
+      failure: (message) async {
+        debugPrint(message);
+      },
+      error: (e) {
+        debugPrint(e.toString());
+      },
+    );
   }
 
   Future<void> getUserData() async {

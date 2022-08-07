@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/models/user/user.dart';
 import 'package:flutter_amazon_clone/providers/dio_provider.dart';
@@ -62,7 +63,19 @@ Future<void> main() async {
                 password: user.password,
               );
 
-          expect(response?.email, user.email);
+          response.when(
+            success: (responseData, message, success) {
+              expect(responseData?.email, user.email);
+            },
+            failure: (message) {
+              debugPrint(message);
+              throw Exception('signInUser() failure');
+            },
+            error: (e) {
+              debugPrint(e.toString());
+              throw Exception('signInUser() error');
+            },
+          );
         },
       );
 
