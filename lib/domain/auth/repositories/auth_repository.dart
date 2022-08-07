@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../models/response_result/response_result.dart';
 import '../../../models/user/user.dart';
 import '../../../providers/dio_provider.dart';
 import '../../../providers/shared_preferences_provider.dart';
@@ -15,7 +16,7 @@ abstract class AbstractAuthRepository {
     required User user,
   });
 
-  Future<User?> signInUser({
+  Future<ResponseResult<User?>> signInUser({
     required String email,
     required String password,
   });
@@ -46,8 +47,9 @@ class AuthRepository implements AbstractAuthRepository {
     }
   }
 
+  // TODO(shimizu-saffle): ResponseResult で返すようにする
   @override
-  Future<User?> signInUser({
+  Future<ResponseResult<User?>> signInUser({
     required String email,
     required String password,
   }) async {
@@ -59,11 +61,13 @@ class AuthRepository implements AbstractAuthRepository {
           'password': password,
         },
       );
-      return User.fromJson(response.data!);
+      final user = User.fromJson(response.data!);
+      return ResponseResult.success(responseData: user);
     } on DioError catch (e) {
-      debugPrint(e.toString());
+      return ResponseResult.failure(message: e.message);
+    } on Exception catch (e) {
+      return ResponseResult.error(e);
     }
-    return null;
   }
 
   @override

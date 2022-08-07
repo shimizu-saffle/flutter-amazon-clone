@@ -1,4 +1,5 @@
 import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
+import 'package:flutter_amazon_clone/models/response_result/response_result.dart';
 import 'package:flutter_amazon_clone/models/user/user.dart';
 
 class MockAuthRepository implements AbstractAuthRepository {
@@ -13,7 +14,7 @@ class MockAuthRepository implements AbstractAuthRepository {
   }
 
   @override
-  Future<User?> signInUser({
+  Future<ResponseResult<User?>> signInUser({
     required String email,
     required String password,
   }) async {
@@ -23,7 +24,7 @@ class MockAuthRepository implements AbstractAuthRepository {
       password: password,
       token: 'mock-token',
     );
-    return user;
+    return ResponseResult.success(responseData: user);
   }
 
   @override
