@@ -12,8 +12,7 @@ final authRepositoryProvider = Provider<AbstractAuthRepository>(
 );
 
 abstract class AbstractAuthRepository {
-  // TODO(shimizu-saffle): ResponseResult を返すように変更する
-  Future<void> signUpUser({
+  Future<ResponseResult<User?>> signUpUser({
     required User user,
   });
 
@@ -35,18 +34,22 @@ class AuthRepository implements AbstractAuthRepository {
 
   final Reader _read;
 
-  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
   @override
-  Future<void> signUpUser({
+  Future<ResponseResult<User?>> signUpUser({
     required User user,
   }) async {
     try {
-      await _read(dioProvider).post<Map<String, dynamic>>(
+      final response = await _read(dioProvider).post<Map<String, dynamic>>(
         AuthRepository.signupPath,
         data: user.toJson(),
       );
+      return ResponseResult.success(
+        responseData: User.fromJson(response.data!),
+      );
     } on DioError catch (e) {
-      debugPrint(e.toString());
+      return ResponseResult.failure(message: e.message);
+    } on Exception catch (e) {
+      return ResponseResult.error(e);
     }
   }
 
