@@ -16,6 +16,7 @@ class AuthController extends StateNotifier<User> {
 
   final Reader _read;
 
+  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
   Future<void> signUpUser({
     required String email,
     required String password,
@@ -56,6 +57,7 @@ class AuthController extends StateNotifier<User> {
     );
   }
 
+  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
   Future<void> getUserData() async {
     final currentUser = await _read(authRepositoryProvider).getUserData();
     if (currentUser == null) {

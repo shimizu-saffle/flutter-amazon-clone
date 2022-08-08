@@ -12,6 +12,7 @@ final authRepositoryProvider = Provider<AbstractAuthRepository>(
 );
 
 abstract class AbstractAuthRepository {
+  // TODO(shimizu-saffle): ResponseResult を返すように変更する
   Future<void> signUpUser({
     required User user,
   });
@@ -21,6 +22,7 @@ abstract class AbstractAuthRepository {
     required String password,
   });
 
+  // TODO(shimizu-saffle): ResponseResult を返すように変更する
   Future<User?> getUserData();
 }
 
@@ -33,6 +35,7 @@ class AuthRepository implements AbstractAuthRepository {
 
   final Reader _read;
 
+  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
   @override
   Future<void> signUpUser({
     required User user,
@@ -70,6 +73,7 @@ class AuthRepository implements AbstractAuthRepository {
   }
 
   @override
+  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
   Future<User?> getUserData() async {
     try {
       final preference = _read(sharedPreferencesProvider);
@@ -79,7 +83,6 @@ class AuthRepository implements AbstractAuthRepository {
         await preference.setString('x-auth-token', '');
         return null;
       }
-
       if (token.isEmpty) {
         return null;
       }
