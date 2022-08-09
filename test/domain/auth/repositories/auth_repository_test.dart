@@ -110,7 +110,7 @@ Future<void> main() async {
           final user = User.fromJson(mockUserCredentials);
           dioAdapter.onPost(
             AuthRepository.signupPath,
-            (server) => server.reply(200, null),
+            (server) => server.reply(200, mockUserCredentials),
             data: user.toJson(),
           );
           await expectLater(
