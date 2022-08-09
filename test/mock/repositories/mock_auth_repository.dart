@@ -28,5 +28,7 @@ class MockAuthRepository implements AbstractAuthRepository {
   }
 
   @override
-  Future<void> signUpUser({required User user}) async {}
+  Future<ResponseResult<User?>> signUpUser({required User user}) async {
+    return ResponseResult.success(responseData: user);
+  }
 }
