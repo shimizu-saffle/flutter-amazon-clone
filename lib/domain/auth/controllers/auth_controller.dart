@@ -16,7 +16,6 @@ class AuthController extends StateNotifier<User> {
 
   final Reader _read;
 
-  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
   Future<void> signUpUser({
     required String email,
     required String password,
@@ -28,8 +27,15 @@ class AuthController extends StateNotifier<User> {
       password: password,
       name: name,
     );
-    await _read(authRepositoryProvider).signUpUser(user: user);
-    onSuccess();
+    final responseResult = await _read(authRepositoryProvider).signUpUser(user: user);
+    responseResult.when(
+      success: (responseData, message, success) {
+        state = responseData!;
+        onSuccess();
+      },
+      failure: (message) async => debugPrint(message),
+      error: (e) => debugPrint(e.toString()),
+    );
   }
 
   Future<void> signInUser({
