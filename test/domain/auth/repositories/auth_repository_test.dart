@@ -175,8 +175,20 @@ Future<void> main() async {
                 'x-auth-token': mockAuthToken,
               },
             );
-          final response = await container.read(authRepositoryProvider).getUserData();
-          expect(response?.email, mockUserCredentials['email']);
+          final responseResult = await container.read(authRepositoryProvider).getUserData();
+          responseResult.when(
+            success: (responseData, message, success) {
+              expect(responseData?.email, mockUserCredentials['email']);
+            },
+            failure: (message) {
+              debugPrint(message);
+              throw Exception('getUserData() failure');
+            },
+            error: (e) {
+              debugPrint(e.toString());
+              throw Exception('getUserData() error');
+            },
+          );
         },
       );
 
