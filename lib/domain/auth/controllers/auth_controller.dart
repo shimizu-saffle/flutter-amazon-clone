@@ -63,13 +63,18 @@ class AuthController extends StateNotifier<User> {
     );
   }
 
-  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
   Future<void> getUserData() async {
-    final currentUser = await _read(authRepositoryProvider).getUserData();
-    if (currentUser == null) {
-      state = state.copyWith(token: '');
-    } else {
-      state = currentUser;
-    }
+    final responseResult = await _read(authRepositoryProvider).getUserData();
+    responseResult.when(
+      success: (responseData, message, success) {
+        if (responseData == null) {
+          state = state.copyWith(token: '');
+        } else {
+          state = responseData;
+        }
+      },
+      failure: (message) async => debugPrint(message),
+      error: (e) => debugPrint(e.toString()),
+    );
   }
 }
