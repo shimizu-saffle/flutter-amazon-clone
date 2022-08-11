@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/response_result/response_result.dart';
@@ -21,8 +20,7 @@ abstract class AbstractAuthRepository {
     required String password,
   });
 
-  // TODO(shimizu-saffle): ResponseResult を返すように変更する
-  Future<User?> getUserData();
+  Future<ResponseResult<User?>> getUserData();
 }
 
 class AuthRepository implements AbstractAuthRepository {
@@ -76,18 +74,19 @@ class AuthRepository implements AbstractAuthRepository {
   }
 
   @override
-  // TODO(shimizu-saffle): ResponseResult でエラーハンドリングする
-  Future<User?> getUserData() async {
+  Future<ResponseResult<User?>> getUserData() async {
     try {
       final preference = _read(sharedPreferencesProvider);
       final token = preference.getString('x-auth-token');
 
+      const user = User(name: '', email: '', password: '');
+
       if (token == null) {
         await preference.setString('x-auth-token', '');
-        return null;
+        return const ResponseResult.success(responseData: user);
       }
       if (token.isEmpty) {
-        return null;
+        return const ResponseResult.success(responseData: user);
       }
 
       final tokenResponse = await _read(dioProvider).post<bool>(
@@ -110,11 +109,17 @@ class AuthRepository implements AbstractAuthRepository {
             },
           ),
         );
-        return User.fromJson(userResponse.data!);
+        return ResponseResult.success(
+          responseData: User.fromJson(userResponse.data!),
+        );
+      } else {
+        await preference.setString('x-auth-token', '');
+        return const ResponseResult.success(responseData: user);
       }
     } on DioError catch (e) {
-      debugPrint(e.toString());
+      return ResponseResult.failure(message: e.message);
+    } on Exception catch (e) {
+      return ResponseResult.error(e);
     }
-    return null;
   }
 }
