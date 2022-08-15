@@ -232,7 +232,7 @@ Future<void> main() async {
               },
             );
           final response = await container.read(authRepositoryProvider).getUserData();
-          expect(response, null);
+          expect(response, const ResponseResult<User?>.failure(message: ''));
         },
       );
     },
