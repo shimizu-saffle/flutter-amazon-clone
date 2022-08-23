@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'constants/global_variables.dart';
-import 'domain/app/router.dart';
+import 'features/app/router.dart';
 import 'utils/provider_scope.dart';
 
 Future<void> main() async {
