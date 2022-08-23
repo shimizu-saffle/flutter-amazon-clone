@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_amazon_clone/domain/auth/repositories/auth_repository.dart';
+import 'package:flutter_amazon_clone/features/auth/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/models/response_result/response_result.dart';
 import 'package:flutter_amazon_clone/models/user/user.dart';
 import 'package:flutter_amazon_clone/providers/dio_provider.dart';
