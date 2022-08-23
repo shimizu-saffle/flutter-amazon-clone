@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_amazon_clone/features/auth/pages/auth_page.dart';
-import 'package:flutter_amazon_clone/features/auth/repositories/auth_repository.dart';
-import 'package:flutter_amazon_clone/features/home/pages/home_page.dart';
+import 'package:flutter_amazon_clone/pages/auth_page.dart';
+import 'package:flutter_amazon_clone/pages/home_page.dart';
+import 'package:flutter_amazon_clone/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/utils/provider_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../mock/repositories/mock_auth_repository.dart';
-import '../../../mock/router/mock_go_router.dart';
-import '../../../mock/router/mock_go_router_provider.dart';
+import '../mock/repositories/mock_auth_repository.dart';
+import '../mock/router/mock_go_router.dart';
+import '../mock/router/mock_go_router_provider.dart';
 
 void main() {
   testWidgets(

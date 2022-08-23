@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../auth/controllers/auth_controller.dart';
+import '../features/auth/auth.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});

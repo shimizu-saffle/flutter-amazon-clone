@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../auth/controllers/auth_controller.dart';
-import '../auth/pages/auth_page.dart';
-import '../home/pages/home_page.dart';
-import 'pages/loading_page.dart';
+import '../features/auth/auth.dart';
+import '../pages/auth_page.dart';
+import '../pages/home_page.dart';
+import '../pages/loading_page.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {

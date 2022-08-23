@@ -4,12 +4,12 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../common/widgets/custom_button.dart';
-import '../../../common/widgets/custom_text_field.dart';
-import '../../../constants/global_variables.dart';
-import '../../../constants/utils.dart';
-import '../../home/pages/home_page.dart';
-import '../controllers/auth_controller.dart';
+import '../constants/global_variables.dart';
+import '../constants/utils.dart';
+import '../features/auth/auth.dart';
+import '../widgets/common/custom_button.dart';
+import '../widgets/common/custom_text_field.dart';
+import 'home_page.dart';
 
 enum AuthStatus {
   signIn,

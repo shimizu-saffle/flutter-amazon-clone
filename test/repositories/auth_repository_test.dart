@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_amazon_clone/features/auth/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/models/response_result/response_result.dart';
 import 'package:flutter_amazon_clone/models/user/user.dart';
+import 'package:flutter_amazon_clone/repositories/auth_repository.dart';
 import 'package:flutter_amazon_clone/services/dio_provider.dart';
 import 'package:flutter_amazon_clone/services/shared_preferences_provider.dart';
 import 'package:flutter_test/flutter_test.dart';

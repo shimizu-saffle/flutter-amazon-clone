@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/user/user.dart';
-import '../../../services/shared_preferences_provider.dart';
-import '../repositories/auth_repository.dart';
+import '../../models/user/user.dart';
+import '../../repositories/auth_repository.dart';
+import '../../services/shared_preferences_provider.dart';
 
 final authProvider = StateNotifierProvider<Auth, User>((ref) => Auth(ref.read));
 
