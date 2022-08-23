@@ -79,7 +79,7 @@ class AuthRepository implements AbstractAuthRepository {
       final preference = _read(sharedPreferencesProvider);
       final token = preference.getString('x-auth-token');
 
-      const user = User(name: '', email: '', password: '');
+      const user = User.defaultValue;
 
       if (token == null) {
         await preference.setString('x-auth-token', '');

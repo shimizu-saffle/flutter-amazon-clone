@@ -1,4 +1,3 @@
-// StateNotifier を継承した AuthController を定義する
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -9,7 +8,7 @@ import '../../services/shared_preferences_provider.dart';
 final authProvider = StateNotifierProvider<Auth, User>((ref) => Auth(ref.read));
 
 class Auth extends StateNotifier<User> {
-  Auth(this._read) : super(const User(name: '', email: '', password: '')) {
+  Auth(this._read) : super(User.defaultValue) {
     getUserData();
   }
 
