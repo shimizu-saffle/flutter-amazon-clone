@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/user/user.dart';
-import '../../../providers/shared_preferences_provider.dart';
+import '../../../services/shared_preferences_provider.dart';
 import '../repositories/auth_repository.dart';
 
 final authControllerProvider =

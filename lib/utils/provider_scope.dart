@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../providers/shared_preferences_provider.dart';
+import '../services/shared_preferences_provider.dart';
 
 /// RootProviderScope で指定する List<Override> を取得する。
 ///

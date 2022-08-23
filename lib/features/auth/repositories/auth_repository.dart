@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/response_result/response_result.dart';
 import '../../../models/user/user.dart';
-import '../../../providers/dio_provider.dart';
-import '../../../providers/shared_preferences_provider.dart';
+import '../../../services/dio_provider.dart';
+import '../../../services/shared_preferences_provider.dart';
 
 final authRepositoryProvider = Provider<AbstractAuthRepository>(
   (ref) => AuthRepository(ref.read),
