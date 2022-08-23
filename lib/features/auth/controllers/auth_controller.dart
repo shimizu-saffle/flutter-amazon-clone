@@ -6,11 +6,10 @@ import '../../../models/user/user.dart';
 import '../../../services/shared_preferences_provider.dart';
 import '../repositories/auth_repository.dart';
 
-final authControllerProvider =
-    StateNotifierProvider<AuthController, User>((ref) => AuthController(ref.read));
+final authProvider = StateNotifierProvider<Auth, User>((ref) => Auth(ref.read));
 
-class AuthController extends StateNotifier<User> {
-  AuthController(this._read) : super(const User(name: '', email: '', password: '')) {
+class Auth extends StateNotifier<User> {
+  Auth(this._read) : super(const User(name: '', email: '', password: '')) {
     getUserData();
   }
 

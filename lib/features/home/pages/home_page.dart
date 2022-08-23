@@ -10,7 +10,7 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authControllerProvider);
+    final user = ref.watch(authProvider);
     return Scaffold(
       body: Center(
         child: Text('${user.name}\n${user.token}'),

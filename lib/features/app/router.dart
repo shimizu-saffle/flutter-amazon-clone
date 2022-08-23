@@ -12,7 +12,7 @@ final routerProvider = Provider<GoRouter>(
     return GoRouter(
       redirect: (state) {
         final path = state.subloc;
-        final authController = ref.watch(authControllerProvider);
+        final authController = ref.watch(authProvider);
         final authToken = authController.token;
         if (authToken == null) {
           return null;

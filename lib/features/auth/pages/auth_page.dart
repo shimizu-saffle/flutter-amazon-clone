@@ -31,7 +31,7 @@ class AuthPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authStatus = useState<AuthStatus>(AuthStatus.signUp);
-    final authController = ref.watch(authControllerProvider.notifier);
+    final authController = ref.watch(authProvider.notifier);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
@@ -150,7 +150,7 @@ class AuthPage extends HookConsumerWidget {
                           CustomButton(
                             onPressed: () {
                               if (signInFormKey.currentState!.validate()) {
-                                ref.read(authControllerProvider.notifier).signInUser(
+                                ref.read(authProvider.notifier).signInUser(
                                       email: emailController.text,
                                       password: passwordController.text,
                                       onSuccess: () => context.go(HomePage.routePath),
